@@ -27,7 +27,7 @@ import org.relique.jdbc.csv.*;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @created    25 November 2001
- * @version    $Id: XlsStatement.java,v 1.1 2004-11-16 23:35:28 aschild Exp $
+ * @version    $Id: XlsStatement.java,v 1.2 2004-12-10 12:08:26 aschild Exp $
  */
 
 public class XlsStatement implements Statement
@@ -337,7 +337,7 @@ public boolean getMoreResults(int current)
     XlsReader reader;
     try
     {
-      reader = new XlsReader(fileName, connection.getSeperator(), connection.isSuppressHeaders());
+      reader = new XlsReader(fileName, connection.getSeperator(), connection.isSuppressHeaders(), connection.getStringDateFormat());
     }
     catch (Exception e)
     {

@@ -27,13 +27,14 @@ import java.util.Hashtable;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @created    25 November 2001
- * @version    $Id: XlsConnection.java,v 1.1 2004-11-16 23:35:27 aschild Exp $
+ * @version    $Id: XlsConnection.java,v 1.2 2004-12-10 12:08:26 aschild Exp $
  */
 
 public class XlsConnection implements Connection
 {
   private String filePath = null;
   private String fileExtension = ".xls";
+  private String stringDateFormat = null;
   private char separator=',';
   private boolean suppressHeaders=false;
 
@@ -69,6 +70,7 @@ public class XlsConnection implements Connection
       fileExtension = info.getProperty(XlsDriver.FILE_EXTENSION,fileExtension);
       separator     = info.getProperty(XlsDriver.SEPARATOR,new Character(separator).toString()).charAt(0);
       suppressHeaders = Boolean.valueOf(info.getProperty(XlsDriver.SUPPRESS_HEADERS,String.valueOf(suppressHeaders))).booleanValue();
+      stringDateFormat = info.getProperty(XlsDriver.STRING_DATE_FORMAT, null);
     }
     DriverManager.println("XlsJdbc - XlsConnection() - filePath=" + filePath +
                                                     " - file extension=" + fileExtension +
@@ -405,6 +407,18 @@ public class XlsConnection implements Connection
     return fileExtension;
   }
 
+  /**
+   * Insert the method's description here.
+   *
+   * Creation date: (14-11-2001 8:49:37)
+   *
+   * @return    java.lang.String
+   * @since
+   */
+  protected String getStringDateFormat()
+  {
+    return stringDateFormat;
+  }
 
   /**
    * Insert the method's description here.
