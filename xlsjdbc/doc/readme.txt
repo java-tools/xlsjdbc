@@ -28,7 +28,16 @@ statement.
 There are no other sql statements or options supported, not even a simple
 where clausle. You see, there  is plenty room for improvements.
 
+Retrieving date fields can cause problems, when the date is entered as string
+in excel and not as date. To solve this problem you have to specify the
+dateformat (as used by java.text.SimpleDateFormat)
+
+For Switzerland we use this:
+
+info.setProperty(org.aarboard.jdbc.xls.XlsDriver.STRING_DATE_FORMAT, "d.M.yyyy");
+conn= DriverManager.getConnection(jdbcURL, info );
+
+
 Ask me if you wish to contribute to this project.
 
-(C) 2002 a.schild@aarboard.ch
- 
+(C) 2004 a.schild@aarboard.ch
