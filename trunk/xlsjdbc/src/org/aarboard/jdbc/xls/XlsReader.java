@@ -42,7 +42,7 @@ import org.apache.poi.hssf.util.*;
  * @author     Sander Brienen
  * @author     Stuart Mottram (fritto)
  * @created    25 November 2001
- * @version    $Id: XlsReader.java,v 1.2 2004-11-29 19:12:18 aschild Exp $
+ * @version    $Id: XlsReader.java,v 1.3 2004-12-10 10:29:53 aschild Exp $
  */
 
 public class XlsReader
@@ -183,9 +183,25 @@ public class XlsReader
    * @since
    */
   
-  public java.util.Date getColumnDate(int columnIndex)
+  public java.util.Date getColumnDate(int columnIndex) throws java.text.ParseException
   {
-      return columns.getCell((short) columnIndex).getDateCellValue();
+      HSSFCell cellData= columns.getCell((short) columnIndex);
+      java.util.Date retVal= null;
+      try
+      {
+            retVal= cellData.getDateCellValue();
+      }
+      catch (NumberFormatException e)
+      {
+          // Occurs when the cell is a string
+          String sData= cellData.getStringCellValue();
+          if (sData != null && sData.trim().length() > 0)
+          {
+              java.text.SimpleDateFormat sdFormat= new java.text.SimpleDateFormat();
+              retVal= sdFormat.parse(sData);
+          }
+      }
+      return retVal;
   }
 
   /**
