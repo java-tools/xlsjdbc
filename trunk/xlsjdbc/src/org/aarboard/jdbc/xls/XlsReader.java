@@ -42,7 +42,7 @@ import org.apache.poi.hssf.util.*;
  * @author     Sander Brienen
  * @author     Stuart Mottram (fritto)
  * @created    25 November 2001
- * @version    $Id: XlsReader.java,v 1.2 2004-05-17 10:18:05 aschild Exp $
+ * @version    $Id: XlsReader.java,v 1.1 2004-11-16 23:35:27 aschild Exp $
  */
 
 public class XlsReader

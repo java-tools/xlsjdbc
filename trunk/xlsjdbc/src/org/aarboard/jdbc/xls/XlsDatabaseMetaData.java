@@ -22,7 +22,7 @@ package org.aarboard.jdbc.xls;
  * @author     Andre Schild
  * @author     Jonathan Ackerman
  * @created    25 November 2001
- * @version    $Id: XlsDatabaseMetaData.java,v 1.1.1.1 2002-04-27 21:06:13 aschild Exp $
+ * @version    $Id: XlsDatabaseMetaData.java,v 1.1 2004-11-16 23:35:27 aschild Exp $
  */
 public class XlsDatabaseMetaData
 {

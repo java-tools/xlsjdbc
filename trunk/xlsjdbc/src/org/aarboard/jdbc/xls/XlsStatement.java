@@ -27,7 +27,7 @@ import org.relique.jdbc.csv.*;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @created    25 November 2001
- * @version    $Id: XlsStatement.java,v 1.2 2004-05-17 10:18:05 aschild Exp $
+ * @version    $Id: XlsStatement.java,v 1.1 2004-11-16 23:35:28 aschild Exp $
  */
 
 public class XlsStatement implements Statement
