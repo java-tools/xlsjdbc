@@ -42,7 +42,7 @@ import org.apache.poi.hssf.util.*;
  * @author     Sander Brienen
  * @author     Stuart Mottram (fritto)
  * @created    25 November 2001
- * @version    $Id: XlsReader.java,v 1.6 2004-12-13 15:20:20 aschild Exp $
+ * @version    $Id: XlsReader.java,v 1.7 2004-12-13 19:16:24 aschild Exp $
  */
 
 public class XlsReader
@@ -464,6 +464,8 @@ public class XlsReader
         //
         // Correct would be a check for >=, but since there is a bug in POI 2.5
         // who returns one row too less, we do a check on >=
+        //
+        // See and vote: http://issues.apache.org/bugzilla/show_bug.cgi?id=30635
         //
         if (cRow > input.getLastRowNum())
         {
