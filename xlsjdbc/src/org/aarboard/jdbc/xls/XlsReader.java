@@ -42,7 +42,7 @@ import org.apache.poi.hssf.util.*;
  * @author     Sander Brienen
  * @author     Stuart Mottram (fritto)
  * @created    25 November 2001
- * @version    $Id: XlsReader.java,v 1.3 2004-12-10 10:29:53 aschild Exp $
+ * @version    $Id: XlsReader.java,v 1.4 2004-12-10 12:08:26 aschild Exp $
  */
 
 public class XlsReader
@@ -60,6 +60,7 @@ public class XlsReader
     private HSSFRow buf = null;
     private char separator = ',';
     private boolean suppressHeaders = false;
+    private String stringDateFormat= null;
 
 
   /**
@@ -71,12 +72,11 @@ public class XlsReader
    */
   public XlsReader(String fileName) throws Exception
   {
-    this(fileName, ',', false);
+    this(fileName, ',', false, null);
   }
 
 
   /**
-   * Insert the method's description here.
    *
    * Creation date: (6-11-2001 15:02:42)
    *
@@ -86,11 +86,12 @@ public class XlsReader
    * @exception  java.lang.Exception  The exception description.
    * @since
    */
-  public XlsReader(String fileName, char separator, boolean suppressHeaders)
+  public XlsReader(String fileName, char separator, boolean suppressHeaders, String stringDateFormat)
        throws java.lang.Exception
   {
     this.separator = separator;
     this.suppressHeaders = suppressHeaders;
+    this.stringDateFormat= stringDateFormat;
 
     POIFSFileSystem fs =new POIFSFileSystem(new FileInputStream(fileName));
     
@@ -197,7 +198,15 @@ public class XlsReader
           String sData= cellData.getStringCellValue();
           if (sData != null && sData.trim().length() > 0)
           {
-              java.text.SimpleDateFormat sdFormat= new java.text.SimpleDateFormat();
+              java.text.SimpleDateFormat sdFormat;
+              if (stringDateFormat == null)
+              {
+                  sdFormat= new java.text.SimpleDateFormat();
+              }
+              else
+              {
+                  sdFormat= new java.text.SimpleDateFormat(stringDateFormat);
+              }
               retVal= sdFormat.parse(sData);
           }
       }

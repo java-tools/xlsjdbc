@@ -27,7 +27,7 @@ import java.io.File;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @author     JD Evora
- * @version    $Id: XlsDriver.java,v 1.1 2004-11-16 23:35:27 aschild Exp $
+ * @version    $Id: XlsDriver.java,v 1.2 2004-12-10 12:08:26 aschild Exp $
  */
 
 public class XlsDriver implements Driver
@@ -35,6 +35,7 @@ public class XlsDriver implements Driver
   public static final String FILE_EXTENSION="fileExtension";
   public static final String SEPARATOR="separator";
   public static final String SUPPRESS_HEADERS="suppressHeaders";
+  public static final String STRING_DATE_FORMAT="stringDateFormat"; /// The format to use when converting a string into date in getDate calls
   private final static String URL_PREFIX = "jdbc:aarboard:xls:";
   private Properties info = null;
 
@@ -75,7 +76,7 @@ public class XlsDriver implements Driver
    */
   public int getMinorVersion()
   {
-    return 2;
+    return 3;
   }
 
 
