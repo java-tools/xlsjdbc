@@ -42,7 +42,7 @@ import org.apache.poi.hssf.util.*;
  * @author     Sander Brienen
  * @author     Stuart Mottram (fritto)
  * @created    25 November 2001
- * @version    $Id: XlsReader.java,v 1.5 2004-12-13 15:07:25 aschild Exp $
+ * @version    $Id: XlsReader.java,v 1.6 2004-12-13 15:20:20 aschild Exp $
  */
 
 public class XlsReader
@@ -461,6 +461,10 @@ public class XlsReader
     else
     {
       // read new line of data from input.
+        //
+        // Correct would be a check for >=, but since there is a bug in POI 2.5
+        // who returns one row too less, we do a check on >=
+        //
         if (cRow > input.getLastRowNum())
         {
             dataLine= null;

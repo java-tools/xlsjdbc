@@ -10,21 +10,28 @@ import junit.framework.*;
  *
  * @author sca
  */
-public class Test51Rows extends TestCase {
+public class TestNRows extends TestCase {
     
-    public Test51Rows(String testName) {
+    public TestNRows(String testName) {
         super(testName);
     }
 
+    public void test51Rows()
+    {
+        doTestNRows(10);
+        doTestNRows(51);
+    }
+    
+    
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
-    public void test51Rows()
+    public void doTestNRows(int nCount)
     {
         String jdbcClassName= "org.aarboard.jdbc.xls.XlsDriver";
         String jdbcURL= "jdbc:aarboard:xls:C:/Develop/Sourceforge/xlsjdbc/test/testdata/";
         String jdbcUsername= "";
         String jdbcPassword= "";
-        String jdbcTableName= "51rowsexcel";
+        String jdbcTableName= ""+nCount+"rows";
         
         try
         {
@@ -38,9 +45,12 @@ public class Test51Rows extends TestCase {
             while (results.next())
             {
                 rCount++;
-                System.out.println("Current row: "+rCount);
+                // System.out.println("Current row: "+rCount);
             }
-            assertTrue("Did not find excpected 51 rows, but "+rCount, rCount == 51);
+            assertTrue("Did not find excpected "+nCount+" rows, but "+rCount, rCount == nCount);
+            results.close();
+            stmt.close();
+            conn.close();
         }
         catch (Exception e)
         {
