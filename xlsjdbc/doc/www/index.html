@@ -13,49 +13,63 @@ body {
 </head>
 
 <body>
-<h1>XLS JDBC</h1>
-<p>XLSJDBC is a readonly jdbc driver to access any xls files from
-  java,<br>
-just as it where another ordinary SQL database.</p>
-<p>The project ist actually hosted at sourceforge.</p>
-<p><a href="http://sourceforge.net/projects/xlsjdbc/">http://sourceforge.net/projects/xlsjdbc/</a> is
-  the main project link.</p>
-<p>To be able to use this library you must abtain two other libraries as well.<br>
+<table width="95%" border="0">
+  <tr>
+    <td>&nbsp;</td>
+    <td><h1>XLS JDBC</h1>
+      <p>XLSJDBC is a readonly jdbc driver to access any xls files from java,<br>
+  just as it where another ordinary SQL database.</p>
+      <p>The project ist actually hosted at sourceforge.</p>
+      <p><a href="http://sourceforge.net/projects/xlsjdbc/">http://sourceforge.net/projects/xlsjdbc/</a> is
+        the main project link.</p>
+      <p>To be able to use this library you must abtain two other libraries as
+        well.<br>
   The first is the org.relique.jdbc.csv package who contains a parser for SQL<br>
   statement. Most parts of this project ae anyway based on the development of<br>
   the CVSJDBC driver.<br>
   You can download this driver package from sourceforge.</p>
-<p><a href="http://sourceforge.net/projects/csvjdbc/">http://sourceforge.net/projects/csvjdbc/</a> is the place to look for.</p>
-<p>Second you need a library who can read the XLS files. For this we use the<br>
+      <p><a href="http://csvjdbc.sourceforge.net/">http://csvjdbc.sourceforge.net/</a> is
+        the place to look for.</p>
+      <p>Second you need a library who can read the XLS files. For this we use
+        the<br>
   jakarta poi package. We only have tested it with release 2.5 of POI.<br>
   Available at <a href="http://jakarta.apache.org/poi/">http://jakarta.apache.org/poi/</a></p>
-<p>Once you got those packages you can compile and use the driver.</p>
-<p>Actually the &quot;only&quot; thing you can do is a select * from xlsfile<br>
+      <p>Once you got those packages you can compile and use the driver.</p>
+      <p>Actually the &quot;only&quot; thing you can do is a select * from xlsfile<br>
   statement.</p>
-<p>There are no other sql statements or options supported, not even a simple<br>
+      <p>There are no other sql statements or options supported, not even a simple<br>
   where clausle. You see, there is plenty room for improvements.</p>
-<p>Retrieving date fields can cause problems, when the date is entered as string<br>
+      <p>Retrieving date fields can cause problems, when the date is entered
+        as string<br>
   in excel and not as date. To solve this problem you have to specify the<br>
   dateformat (as used by java.text.SimpleDateFormat)</p>
-<p>For Switzerland we use this:</p>
-<p>info.setProperty(org.aarboard.jdbc.xls.XlsDriver.STRING_DATE_FORMAT, &quot;d.M.yyyy&quot;);<br>
+      <p>For Switzerland we use this:</p>
+      <p>info.setProperty(org.aarboard.jdbc.xls.XlsDriver.STRING_DATE_FORMAT, &quot;d.M.yyyy&quot;);<br>
   conn= DriverManager.getConnection(jdbcURL, info );</p>
-<p><br>
+      <p><br>
   Ask me if you wish to contribute to this project.</p>
-<p>&nbsp;</p>
-<p>There exists another project who allows you access to XLS files via JDBC.</p>
-<p><a href="http://xlsql.dev.java.net/" target="_blank">http://xlsql.dev.java.net/</a></p>
-<p>With xlsql you can use the full select syntax and even have write access to
-  xls files.</p>
-<p>But it requires a rather large setup before you can use it.</p>
-<p>&nbsp;</p>
-<p>For news you can subscribe to freshmeat</p>
-<p><a href="http://freshmeat.net/projects/xlsjdbc" target="_blank">http://freshmeat.net/projects/xlsjdbc</a></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>(C) 2004 a.schild@aarboard.ch</p>
+      <p>&nbsp;</p>
+      <p>There exists another project who allows you access to XLS files via
+        JDBC.</p>
+      <p><a href="http://xlsql.dev.java.net/" target="_blank">http://xlsql.dev.java.net/</a></p>
+      <p>With xlsql you can use the full select syntax and even have write access
+        to xls files.</p>
+      <p>But it requires a rather large setup before you can use it.</p>
+      <p>&nbsp;</p>
+      <p>For news you can subscribe to freshmeat</p>
+      <p><a href="http://freshmeat.net/projects/xlsjdbc" target="_blank">http://freshmeat.net/projects/xlsjdbc</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><p>Hosted at</p>
+    <p><a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=50004&amp;type=2" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></p>
+    <p><a href="http://www.java.net" target="_blank"><img src="javanet_button_170.gif" alt="java.net MEMBER" width="170" height="47" border="0"></a></p></td>
+    <td>(C) 2004 a.schild@aarboard.ch</td>
+  </tr>
+</table>
+<h1>&nbsp;</h1>
 <p><br>
 </p>
-<p><a href="http://www.java.net" target="_blank"><img src="javanet_button_170.gif" width="170" height="47" border="0"></a> </p>
+<p>&nbsp;</p>
 </body>
 </html>
