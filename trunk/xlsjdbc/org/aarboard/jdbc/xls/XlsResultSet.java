@@ -28,7 +28,7 @@ import java.util.Calendar;
  * @author     Andre Schild
  * @author     Jonathan Ackerman
  * @created    25 November 2001
- * @version    $Id: XlsResultSet.java,v 1.1.1.1 2002-04-27 21:06:30 aschild Exp $
+ * @version    $Id: XlsResultSet.java,v 1.2 2004-05-17 10:18:05 aschild Exp $
  */
 public class XlsResultSet implements ResultSet
 {
@@ -83,7 +83,10 @@ public class XlsResultSet implements ResultSet
    */
   public void setFetchSize(int p0) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+        // 
+        // Allowed just to ignore
+        //
+        // throw new SQLException("Not Supported !");
   }
 
 
@@ -148,14 +151,21 @@ public class XlsResultSet implements ResultSet
   /**
    *Gets the boolean attribute of the XlsResultSet object
    *
-   * @param  p0                Description of Parameter
+   * @param  columnIndex                Description of Parameter
    * @return                   The boolean value
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public boolean getBoolean(int p0) throws SQLException
+  public boolean getBoolean(int columnIndex) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    try
+    {
+        return reader.getColumnBoolean(columnNames[columnIndex]);
+    }
+    catch (Exception e)
+    {
+        throw new SQLException(e.getMessage());
+    }
   }
 
 
@@ -237,9 +247,16 @@ public class XlsResultSet implements ResultSet
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public double getDouble(int p0) throws SQLException
+  public double getDouble(int columnIndex) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    try
+    {
+        return reader.getColumnDouble(columnNames[columnIndex]);
+    }
+    catch (Exception e)
+    {
+        throw new SQLException(e.getMessage());
+    }
   }
 
 
@@ -275,14 +292,22 @@ public class XlsResultSet implements ResultSet
   /**
    *Gets the date attribute of the XlsResultSet object
    *
-   * @param  p0                Description of Parameter
+   * @param  columnIndex    Column to get date value for
    * @return                   The date value
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public Date getDate(int p0) throws SQLException
+  public Date getDate(int columnIndex) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    try
+    {
+        java.util.Date retVal= reader.getColumnDate(columnNames[columnIndex]);
+        return new java.sql.Date(retVal.getTime());
+    }
+    catch (Exception e)
+    {
+      throw new SQLException(e.getMessage());
+    }
   }
 
 
@@ -364,9 +389,19 @@ public class XlsResultSet implements ResultSet
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public boolean getBoolean(String p0) throws SQLException
+  public boolean getBoolean(String columnName) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    columnName = columnName.toUpperCase();
+
+    for (int loop = 0; loop < columnNames.length; loop++)
+    {
+        if (columnName.equals(columnNames[loop]))
+        {
+            return getBoolean(loop);
+        }
+    }
+    
+    throw new SQLException("Column '" + columnName + "' not found.");
   }
 
 
@@ -448,9 +483,19 @@ public class XlsResultSet implements ResultSet
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public double getDouble(String p0) throws SQLException
+  public double getDouble(String columnName) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    columnName = columnName.toUpperCase();
+
+    for (int loop = 0; loop < columnNames.length; loop++)
+    {
+        if (columnName.equals(columnNames[loop]))
+        {
+            return getDouble(loop);
+        }
+    }
+    
+    throw new SQLException("Column '" + columnName + "' not found.");
   }
 
 
@@ -486,14 +531,24 @@ public class XlsResultSet implements ResultSet
   /**
    *Gets the date attribute of the XlsResultSet object
    *
-   * @param  p0                Description of Parameter
+   * @param  columnName        Name of column to retrieve date for
    * @return                   The date value
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public Date getDate(String p0) throws SQLException
+  public Date getDate(String columnName) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+      columnName = columnName.toUpperCase();
+      
+      for (int loop = 0; loop < columnNames.length; loop++)
+      {
+          if (columnName.equals(columnNames[loop]))
+          {
+              return getDate(loop);
+          }
+      }
+      
+      throw new SQLException("Column '" + columnName + "' not found.");
   }
 
 
@@ -1865,5 +1920,74 @@ public class XlsResultSet implements ResultSet
   {
     throw new SQLException("Not Supported !");
   }
+  
+  public java.net.URL getURL(int columnNumber)
+  {
+      return null;
+  }
+
+  public java.net.URL getURL(String columnNumber)
+  {
+      return null;
+  }
+
+  public void updateRef(int columnIndex,
+                      java.sql.Ref x)
+               throws SQLException
+  {
+    throw new SQLException("Not Supported !");
+  }
+  
+public void updateRef(String columnName,
+                      Ref x)
+               throws SQLException
+    {
+    throw new SQLException("Not Supported !");
+    }
+
+public void updateBlob(int columnIndex,
+                       Blob x)
+                throws SQLException
+{
+    throw new SQLException("Not Supported !");
+}
+
+public void updateBlob(String columnName,
+                       Blob x)
+                throws SQLException
+{
+    throw new SQLException("Not Supported !");
+}
+
+public void updateClob(int columnIndex,
+                       Clob x)
+                throws SQLException
+
+{
+    throw new SQLException("Not Supported !");
+}
+
+public void updateClob(String columnName,
+                       Clob x)
+                throws SQLException
+    {
+    throw new SQLException("Not Supported !");
+    }
+ 
+
+public void updateArray(int columnIndex,
+                        Array x)
+                 throws SQLException
+
+{
+    throw new SQLException("Not Supported !");
+}
+
+public void updateArray(String columnName,
+                        Array x)
+                 throws SQLException
+    {
+    throw new SQLException("Not Supported !");
+    }
 }
 

@@ -1,3 +1,7 @@
+2004.05.17 : Moved from XLRD to jakarta POI for reading xls files.
+             This solves the problems with umlauts, (BUG #953939)
+2004.04.16 : Added support for getDouble, getDate and getBoolean methods of JDBC
+2002.04.27 :
 In december 2001 we had the need to import cvs data uploaded
 by a webbrowser into a sql database. The whole content management 
 system we use actually is based on java servlets and JSP files.
