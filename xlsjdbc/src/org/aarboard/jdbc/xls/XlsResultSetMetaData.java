@@ -24,7 +24,7 @@ import java.sql.Types;
  *
  * @author     Jonathan Ackerman
  * @author     JD Evora
- * @version    $Id: XlsResultSetMetaData.java,v 1.1.1.1 2002-04-27 21:06:32 aschild Exp $
+ * @version    $Id: XlsResultSetMetaData.java,v 1.1 2004-11-16 23:35:28 aschild Exp $
  */
 public class XlsResultSetMetaData implements ResultSetMetaData
 {
