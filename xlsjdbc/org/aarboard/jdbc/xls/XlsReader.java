@@ -18,7 +18,20 @@ package org.aarboard.jdbc.xls;
 
 import java.io.*;
 import java.util.*;
-import xlrd.*;
+
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+import java.util.Random;
+
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.hssf.record.*;
+import org.apache.poi.hssf.model.*;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.*;
 
 /**
  * This class is a helper class that handles the reading and parsing of data
@@ -29,17 +42,22 @@ import xlrd.*;
  * @author     Sander Brienen
  * @author     Stuart Mottram (fritto)
  * @created    25 November 2001
- * @version    $Id: XlsReader.java,v 1.1.1.1 2002-04-27 21:06:19 aschild Exp $
+ * @version    $Id: XlsReader.java,v 1.2 2004-05-17 10:18:05 aschild Exp $
  */
 
 public class XlsReader
 {
-    private Workbook workbook;
-    private Sheet    input;
+    private InputStream    stream       = null;
+    private Record[]       records      = null;
+    protected HSSFWorkbook workbook = null;
+    
+    
+//    private Workbook workbook;
+    private HSSFSheet    input;
     private int     cRow;   // The current row we are on
     private String[] columnNames;
-    private Cell[] columns;
-    private Cell[] buf = null;
+    private HSSFRow columns;
+    private HSSFRow buf = null;
     private char separator = ',';
     private boolean suppressHeaders = false;
 
@@ -74,19 +92,22 @@ public class XlsReader
     this.separator = separator;
     this.suppressHeaders = suppressHeaders;
 
+    POIFSFileSystem fs =new POIFSFileSystem(new FileInputStream(fileName));
     
-    workbook = Workbook.getWorkbook(new File(fileName));
+    workbook = new HSSFWorkbook(fs);
+
+    // workbook = Workbook.getWorkbook(new File(fileName));
     int sCount= workbook.getNumberOfSheets();
-    input= workbook.getSheet(0);
+    input= workbook.getSheetAt(0);
     cRow= 0;
                           
     //input = new BufferedReader(new FileReader(fileName));
     if (this.suppressHeaders)
     {
       // No column names available. Read first data line and determine number of colums.
-      Cell[] data = input.getRow(cRow++);
-      columnNames = new String[data.length];
-      for (int i = 0; i < data.length; i++)
+      HSSFRow data = input.getRow(cRow++);
+      columnNames = new String[data.getLastCellNum()];
+      for (int i = 0; i < data.getLastCellNum(); i++)
       {
         columnNames[i] = "COLUMN" + String.valueOf(i+1);
       }
@@ -95,11 +116,11 @@ public class XlsReader
     }
     else
     {
-      Cell[] data = input.getRow(cRow++);
-      columnNames = new String[data.length];
-      for (int i = 0; i < data.length; i++)
+      HSSFRow data = input.getRow(cRow++);
+      columnNames = new String[data.getLastCellNum()];
+      for (short i = 0; i < data.getLastCellNum(); i++)
       {
-        columnNames[i] = data[i].getContents().toUpperCase();
+        columnNames[i] = data.getCell(i).getStringCellValue().toUpperCase();
       }
     }
   }
@@ -127,10 +148,72 @@ public class XlsReader
 
   public String getColumn(int columnIndex)
   {
-    return columns[columnIndex].getContents();
+    HSSFCell thisCell= columns.getCell((short)columnIndex);
+    if (thisCell.getCellType() == HSSFCell.CELL_TYPE_STRING)
+    {
+        return thisCell.getStringCellValue();
+    }
+    else if (thisCell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
+    {
+        double cValue= thisCell.getNumericCellValue();
+        HSSFCellStyle cStyle= thisCell.getCellStyle();
+        short cFormatIndex = cStyle.getDataFormat();
+        HSSFDataFormat thisFormat= workbook.createDataFormat();
+        // String cFormat= thisFormat.getFormat(cFormatIndex);
+        String retVal= Double.toString(cValue );
+        if (retVal.substring(retVal.length()-2).equals(".0"))
+        {
+            retVal= retVal.substring(0, retVal.length()-2);
+        }
+        return retVal;
+    }
+    else
+    {
+        return thisCell.getStringCellValue();
+    }
   }
 
 
+  
+  /**
+   * Get the value of the column at the specified index.
+   *
+   * @param  columnIndex  Description of Parameter
+   * @return              The column value
+   * @since
+   */
+  
+  public java.util.Date getColumnDate(int columnIndex)
+  {
+      return columns.getCell((short) columnIndex).getDateCellValue();
+  }
+
+  /**
+   * Get the value of the column at the specified index.
+   *
+   * @param  columnIndex  Description of Parameter
+   * @return              The column value
+   * @since
+   */
+  
+  public boolean getColumnBoolean(int columnIndex)
+  {
+      return columns.getCell((short) columnIndex).getBooleanCellValue();
+  }
+
+  /**
+   * Get the value of the column at the specified index.
+   *
+   * @param  columnIndex  Description of Parameter
+   * @return              The column value
+   * @since
+   */
+  
+  public double getColumnDouble(int columnIndex)
+  {
+      return columns.getCell((short) columnIndex).getNumericCellValue();
+  }
+  
   /**
    * Get value from column at specified name.
    * If the column name is not found, throw an error.
@@ -154,6 +237,74 @@ public class XlsReader
     throw new Exception("Column '" + columnName + "' not found.");
   }
 
+  /**
+   * Get value from column at specified name.
+   * If the column name is not found, throw an error.
+   *
+   * @param  columnName     Description of Parameter
+   * @return                The column value
+   * @exception  Exception  Description of Exception
+   * @since
+   */
+  
+  public java.util.Date getColumnDate(String columnName) throws Exception
+  {
+      columnName = columnName.toUpperCase();
+      for (int loop = 0; loop < columnNames.length; loop++)
+      {
+          if (columnName.equals(columnNames[loop]))
+          {
+              return getColumnDate(loop);
+          }
+      }
+      throw new Exception("Column '" + columnName + "' not found.");
+  }
+
+  /**
+   * Get value from column at specified name.
+   * If the column name is not found, throw an error.
+   *
+   * @param  columnName     Description of Parameter
+   * @return                The column value
+   * @exception  Exception  Description of Exception
+   * @since
+   */
+  
+  public boolean getColumnBoolean(String columnName) throws Exception
+  {
+      columnName = columnName.toUpperCase();
+      for (int loop = 0; loop < columnNames.length; loop++)
+      {
+          if (columnName.equals(columnNames[loop]))
+          {
+              return getColumnBoolean(loop);
+          }
+      }
+      throw new Exception("Column '" + columnName + "' not found.");
+  }
+  
+  /**
+   * Get value from column at specified name.
+   * If the column name is not found, throw an error.
+   *
+   * @param  columnName     Description of Parameter
+   * @return                The column value
+   * @exception  Exception  Description of Exception
+   * @since
+   */
+  
+  public double getColumnDouble(String columnName) throws Exception
+  {
+      columnName = columnName.toUpperCase();
+      for (int loop = 0; loop < columnNames.length; loop++)
+      {
+          if (columnName.equals(columnNames[loop]))
+          {
+              return getColumnDouble(loop);
+          }
+      }
+      throw new Exception("Column '" + columnName + "' not found.");
+  }
 
   /**
    *Description of the Method
@@ -165,7 +316,7 @@ public class XlsReader
   public boolean next() throws Exception
   {
     //columns = new String[columnNames.length];
-    Cell dataLine[];
+    HSSFRow dataLine;
     if (suppressHeaders && (buf != null))
     {
       // The buffer is not empty yet, so use this first.
@@ -175,7 +326,7 @@ public class XlsReader
     else
     {
       // read new line of data from input.
-        if (cRow >= input.getRows())
+        if (cRow >= input.getLastRowNum())
         {
             dataLine= null;
         }
@@ -187,7 +338,7 @@ public class XlsReader
     if (dataLine == null)
     {
       input= null;
-      workbook.close();
+      // workbook.close();
       return false;
     }
     columns = dataLine;
@@ -205,7 +356,7 @@ public class XlsReader
     try
     {
       input= null;
-      workbook.close();
+      // workbook.close();
       buf = null;
     }
     catch (Exception e)

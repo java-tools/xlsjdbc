@@ -17,9 +17,8 @@ You can download this driver package from sourceforge.
 http://sourceforge.net/projects/csvjdbc/ is the place to look for.
 
 Second you need a library who can read the XLS files. For this we use the
-xlrd package. Available at sourceforge too.
-
-http://sourceforge.net/projects/xlrd/ is the place for this package.
+jakarta poi package. We only have tested it with release 2.5 of POI.
+Available at http://jakarta.apache.org/poi/
 
 Once you got those packages you can compile and use the driver.
 

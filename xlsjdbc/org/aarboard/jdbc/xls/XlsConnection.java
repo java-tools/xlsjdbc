@@ -27,7 +27,7 @@ import java.util.Hashtable;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @created    25 November 2001
- * @version    $Id: XlsConnection.java,v 1.1.1.1 2002-04-27 21:06:12 aschild Exp $
+ * @version    $Id: XlsConnection.java,v 1.2 2004-05-17 10:18:05 aschild Exp $
  */
 
 public class XlsConnection implements Connection
@@ -431,6 +431,57 @@ public class XlsConnection implements Connection
   protected boolean isSuppressHeaders()
   {
     return suppressHeaders;
+  }
+  
+  
+  public int getHoldability() throws java.sql.SQLException 
+{
+    throw new SQLException("Not Supported !");
+}
+  
+  public java.sql.CallableStatement prepareCall(String str, int param, int param2, int param3) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+  
+  public java.sql.PreparedStatement prepareStatement(String str, int param) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+  
+  public java.sql.PreparedStatement prepareStatement(String str, int[] values) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+  
+  public java.sql.PreparedStatement prepareStatement(String str, String[] str1) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+
+  public java.sql.PreparedStatement prepareStatement(String str, int param, int param2, int param3) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+  
+  public void releaseSavepoint(java.sql.Savepoint savepoint) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+  public void rollback(java.sql.Savepoint savepoint) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+  public void setHoldability(int param) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+  public java.sql.Savepoint setSavepoint() throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+  
+  public java.sql.Savepoint setSavepoint(String str) throws java.sql.SQLException {
+    throw new SQLException("Not Supported !");
+  }
+
+  public Statement createStatement(int resultSetType,
+                                 int resultSetConcurrency,
+                                 int resultSetHoldability)
+                          throws SQLException
+{
+    throw new SQLException("Not Supported !");
   }
 }
 
