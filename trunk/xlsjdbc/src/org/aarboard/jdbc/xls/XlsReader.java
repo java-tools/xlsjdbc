@@ -42,7 +42,7 @@ import org.apache.poi.hssf.util.*;
  * @author     Sander Brienen
  * @author     Stuart Mottram (fritto)
  * @created    25 November 2001
- * @version    $Id: XlsReader.java,v 1.1 2004-11-16 23:35:27 aschild Exp $
+ * @version    $Id: XlsReader.java,v 1.2 2004-11-29 19:12:18 aschild Exp $
  */
 
 public class XlsReader
@@ -213,6 +213,46 @@ public class XlsReader
   {
       return columns.getCell((short) columnIndex).getNumericCellValue();
   }
+
+  /**
+   * Get the value of the column at the specified index.
+   *
+   * @param  columnIndex  Description of Parameter
+   * @return              The column value
+   * @since
+   */
+  
+  public int getColumnInt(int columnIndex)
+  {
+      return (int) columns.getCell((short) columnIndex).getNumericCellValue();
+  }
+  
+  /**
+   * Get the value of the column at the specified index.
+   *
+   * @param  columnIndex  Description of Parameter
+   * @return              The column value
+   * @since
+   */
+  
+  public long getColumnLong(int columnIndex)
+  {
+      return (long) columns.getCell((short) columnIndex).getNumericCellValue();
+  }
+  
+  /**
+   * Get the value of the column at the specified index.
+   *
+   * @param  columnIndex  Description of Parameter
+   * @return              The column value
+   * @since
+   */
+  
+  public short getColumnShort(int columnIndex)
+  {
+      return (short) columns.getCell((short) columnIndex).getNumericCellValue();
+  }
+  
   
   /**
    * Get value from column at specified name.
@@ -306,6 +346,76 @@ public class XlsReader
       throw new Exception("Column '" + columnName + "' not found.");
   }
 
+  /**
+   * Get value from column at specified name.
+   * If the column name is not found, throw an error.
+   *
+   * @param  columnName     Description of Parameter
+   * @return                The column value
+   * @exception  Exception  Description of Exception
+   * @since
+   */
+  
+  public int getColumnInt(String columnName) throws Exception
+  {
+      columnName = columnName.toUpperCase();
+      for (int loop = 0; loop < columnNames.length; loop++)
+      {
+          if (columnName.equals(columnNames[loop]))
+          {
+              return getColumnInt(loop);
+          }
+      }
+      throw new Exception("Column '" + columnName + "' not found.");
+  }
+  
+  /**
+   * Get value from column at specified name.
+   * If the column name is not found, throw an error.
+   *
+   * @param  columnName     Description of Parameter
+   * @return                The column value
+   * @exception  Exception  Description of Exception
+   * @since
+   */
+  
+  public short getColumnShort(String columnName) throws Exception
+  {
+      columnName = columnName.toUpperCase();
+      for (int loop = 0; loop < columnNames.length; loop++)
+      {
+          if (columnName.equals(columnNames[loop]))
+          {
+              return getColumnShort(loop);
+          }
+      }
+      throw new Exception("Column '" + columnName + "' not found.");
+  }
+
+  /**
+   * Get value from column at specified name.
+   * If the column name is not found, throw an error.
+   *
+   * @param  columnName     Description of Parameter
+   * @return                The column value
+   * @exception  Exception  Description of Exception
+   * @since
+   */
+  
+  public long getColumnLong(String columnName) throws Exception
+  {
+      columnName = columnName.toUpperCase();
+      for (int loop = 0; loop < columnNames.length; loop++)
+      {
+          if (columnName.equals(columnNames[loop]))
+          {
+              return getColumnLong(loop);
+          }
+      }
+      throw new Exception("Column '" + columnName + "' not found.");
+  }
+
+  
   /**
    *Description of the Method
    *

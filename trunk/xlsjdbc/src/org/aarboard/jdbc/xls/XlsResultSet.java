@@ -28,7 +28,7 @@ import java.util.Calendar;
  * @author     Andre Schild
  * @author     Jonathan Ackerman
  * @created    25 November 2001
- * @version    $Id: XlsResultSet.java,v 1.1 2004-11-16 23:35:27 aschild Exp $
+ * @version    $Id: XlsResultSet.java,v 1.2 2004-11-29 19:12:22 aschild Exp $
  */
 public class XlsResultSet implements ResultSet
 {
@@ -193,7 +193,7 @@ public class XlsResultSet implements ResultSet
    */
   public short getShort(int p0) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+      return reader.getColumnShort(p0);
   }
 
 
@@ -207,7 +207,7 @@ public class XlsResultSet implements ResultSet
    */
   public int getInt(int p0) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+      return reader.getColumnInt(p0);
   }
 
 
@@ -221,7 +221,7 @@ public class XlsResultSet implements ResultSet
    */
   public long getLong(int p0) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+      return reader.getColumnLong(p0);
   }
 
 
@@ -427,9 +427,19 @@ public class XlsResultSet implements ResultSet
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public short getShort(String p0) throws SQLException
+  public short getShort(String columnName) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    columnName = columnName.toUpperCase();
+
+    for (int loop = 0; loop < columnNames.length; loop++)
+    {
+        if (columnName.equals(columnNames[loop]))
+        {
+            return getShort(loop);
+        }
+    }
+    
+    throw new SQLException("Column '" + columnName + "' not found.");
   }
 
 
@@ -441,9 +451,19 @@ public class XlsResultSet implements ResultSet
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public int getInt(String p0) throws SQLException
+  public int getInt(String columnName) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    columnName = columnName.toUpperCase();
+
+    for (int loop = 0; loop < columnNames.length; loop++)
+    {
+        if (columnName.equals(columnNames[loop]))
+        {
+            return getInt(loop);
+        }
+    }
+    
+    throw new SQLException("Column '" + columnName + "' not found.");
   }
 
 
@@ -455,9 +475,19 @@ public class XlsResultSet implements ResultSet
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public long getLong(String p0) throws SQLException
+  public long getLong(String columnName) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    columnName = columnName.toUpperCase();
+
+    for (int loop = 0; loop < columnNames.length; loop++)
+    {
+        if (columnName.equals(columnNames[loop]))
+        {
+            return getLong(loop);
+        }
+    }
+    
+    throw new SQLException("Column '" + columnName + "' not found.");
   }
 
 
@@ -469,9 +499,19 @@ public class XlsResultSet implements ResultSet
    * @exception  SQLException  Description of Exception
    * @since
    */
-  public float getFloat(String p0) throws SQLException
+  public float getFloat(String columnName) throws SQLException
   {
-    throw new SQLException("Not Supported !");
+    columnName = columnName.toUpperCase();
+
+    for (int loop = 0; loop < columnNames.length; loop++)
+    {
+        if (columnName.equals(columnNames[loop]))
+        {
+            return getFloat(loop);
+        }
+    }
+    
+    throw new SQLException("Column '" + columnName + "' not found.");
   }
 
 
