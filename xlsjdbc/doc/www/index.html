@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>XLS JDBC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+-->
+</style>
+</head>
+
+<body>
+<h1>XLS JDBC</h1>
+<p>XLSJDBC is a readonly jdbc driver to be able to access any xls files from
+  java,<br>
+  just as it where another ordinary SQL database.</p>
+<p>The project ist actually hosted at sourceforge.</p>
+<p><a href="http://sourceforge.net/projects/xlsjdbc/">http://sourceforge.net/projects/xlsjdbc/</a> is
+  the main project link.</p>
+<p>To be able to use this library you must abtain two other libraries as well.<br>
+  The first is the org.relique.jdbc.csv package who contains a parser for SQL<br>
+  statement. Most parts of this project ae anyway based on the development of<br>
+  the CVSJDBC driver.<br>
+  You can download this driver package from sourceforge.</p>
+<p><a href="http://sourceforge.net/projects/csvjdbc/">http://sourceforge.net/projects/csvjdbc/</a> is the place to look for.</p>
+<p>Second you need a library who can read the XLS files. For this we use the<br>
+  jakarta poi package. We only have tested it with release 2.5 of POI.<br>
+  Available at <a href="http://jakarta.apache.org/poi/">http://jakarta.apache.org/poi/</a></p>
+<p>Once you got those packages you can compile and use the driver.</p>
+<p>Actually the &quot;only&quot; thing you can do is a select * from xlsfile<br>
+  statement.</p>
+<p>There are no other sql statements or options supported, not even a simple<br>
+  where clausle. You see, there is plenty room for improvements.</p>
+<p>Retrieving date fields can cause problems, when the date is entered as string<br>
+  in excel and not as date. To solve this problem you have to specify the<br>
+  dateformat (as used by java.text.SimpleDateFormat)</p>
+<p>For Switzerland we use this:</p>
+<p>info.setProperty(org.aarboard.jdbc.xls.XlsDriver.STRING_DATE_FORMAT, &quot;d.M.yyyy&quot;);<br>
+  conn= DriverManager.getConnection(jdbcURL, info );</p>
+<p><br>
+  Ask me if you wish to contribute to this project.</p>
+<p>&nbsp;</p>
+<p>There exists another project who allows you access to XLS files via JDBC.</p>
+<p>http://xlsql.dev.java.net/</p>
+<p>With xlsql you can use the full select syntax and even have write access to
+  xls files.</p>
+<p>But it requires a rather large setup before you can use it.</p>
+<p>&nbsp;</p>
+<p>(C) 2004 a.schild@aarboard.ch</p>
+<p><br>
+</p>
+<p><img src="javanet_button_170.gif" width="170" height="47"> </p>
+</body>
+</html>

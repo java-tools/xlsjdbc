@@ -6,7 +6,7 @@ just as it where another ordinary SQL database.
 
 The project ist actually hosted at sourceforge.
 
-https://sourceforge.net/projects/xlsjdbc/ is the main project link.
+http://sourceforge.net/projects/xlsjdbc/ is the main project link.
 
 To be able to use this library you must abtain two other libraries as well.
 The first is the org.relique.jdbc.csv package who contains a parser for SQL
