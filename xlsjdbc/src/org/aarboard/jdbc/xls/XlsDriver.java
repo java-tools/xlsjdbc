@@ -27,7 +27,7 @@ import java.io.File;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @author     JD Evora
- * @version    $Id: XlsDriver.java,v 1.3 2004-12-13 19:16:24 aschild Exp $
+ * @version    $Id: XlsDriver.java,v 1.4 2005-01-07 18:39:34 aschild Exp $
  */
 
 public class XlsDriver implements Driver
@@ -76,7 +76,7 @@ public class XlsDriver implements Driver
    */
   public int getMinorVersion()
   {
-    return 2;
+    return 4;
   }
 
 
@@ -92,10 +92,14 @@ public class XlsDriver implements Driver
   public Connection connect(String url, Properties info) throws SQLException
   {
     DriverManager.println("XlsJdbc - XlsDriver:connect() - url=" + url);
+    if (url == null)
+    {
+        throw new SQLException("Null path specified");
+    }
     // check for correct url
     if (!url.startsWith(URL_PREFIX))
     {
-      return null;
+        throw new SQLException("URL does not start with "+URL_PREFIX);
     }
     // get filepath from url
     String filePath = url.substring(URL_PREFIX.length());
