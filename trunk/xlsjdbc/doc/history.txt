@@ -1,3 +1,6 @@
+2004.12.10 : Added support for getDate on String fields (When the field contains
+             a Date but is not formatted as Date.
+	     The conversionformat can be specified via a driver property.
 2004.05.17 : Moved from XLRD to jakarta POI for reading xls files.
              This solves the problems with umlauts, (BUG #953939)
 2004.04.16 : Added support for getDouble, getDate and getBoolean methods of JDBC
