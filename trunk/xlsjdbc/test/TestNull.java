@@ -1,38 +1,37 @@
 import junit.framework.*;
 /*
- * Test51Rows.java
+ * TestNull.java
  * JUnit based test
  *
- * Created on 13. Dezember 2004, 15:13
+ * Created on 20. April 2005, 11:21
  */
 
 /**
  *
  * @author sca
  */
-public class TestNRows extends TestCase {
+public class TestNull extends TestCase {
     
-    public TestNRows(String testName) {
+    public TestNull(String testName) {
         super(testName);
     }
 
-    public void test51Rows()
-    {
-        doTestNRows(10);
-        doTestNRows(51);
-        doTestNRows(1017);
+    protected void setUp() throws Exception {
     }
-    
+
+    protected void tearDown() throws Exception {
+    }
     
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
-    public void doTestNRows(int nCount)
+    public void testNull()
     {
         String jdbcClassName= "org.aarboard.jdbc.xls.XlsDriver";
         String jdbcURL= "jdbc:aarboard:xls:C:/Develop/Sourceforge/xlsjdbc/test/testdata/";
         String jdbcUsername= "";
         String jdbcPassword= "";
-        String jdbcTableName= ""+nCount+"rows";
+        String jdbcTableName= "nulltest1";
+        int nCount= 1093;
         
         try
         {
@@ -45,6 +44,8 @@ public class TestNRows extends TestCase {
             int rCount= 0;
             while (results.next())
             {
+                String thisCountry= results.getString("Land");
+                
                 rCount++;
                 // System.out.println("Current row: "+rCount);
             }
@@ -57,6 +58,5 @@ public class TestNRows extends TestCase {
         {
             assertFalse("Exception e: "+e.getMessage(), true);
         }
-}
-    
+    }
 }

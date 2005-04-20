@@ -1,3 +1,7 @@
+- Release 1.5.0 -
+2005.04.20 : Catch NULL exceptions in getString and return NULL value 
+2005.01.07 : Better error descirption when using wrong/incorrect URL prefix 
+- Release 1.4.0 -
 2004.12.10 : Added support for getDate on String fields (When the field contains
              a Date but is not formatted as Date.
 	     The conversionformat can be specified via a driver property.
