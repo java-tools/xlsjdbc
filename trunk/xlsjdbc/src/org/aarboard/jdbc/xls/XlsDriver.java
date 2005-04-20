@@ -27,7 +27,7 @@ import java.io.File;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @author     JD Evora
- * @version    $Id: XlsDriver.java,v 1.4 2005-01-07 18:39:34 aschild Exp $
+ * @version    $Id: XlsDriver.java,v 1.5 2005-04-20 09:38:28 aschild Exp $
  */
 
 public class XlsDriver implements Driver
@@ -76,7 +76,7 @@ public class XlsDriver implements Driver
    */
   public int getMinorVersion()
   {
-    return 4;
+    return 5;
   }
 
 
