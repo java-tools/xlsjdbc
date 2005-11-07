@@ -27,7 +27,7 @@ import org.relique.jdbc.csv.*;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @created    25 November 2001
- * @version    $Id: XlsStatement.java,v 1.2 2004-12-10 12:08:26 aschild Exp $
+ * @version    $Id: XlsStatement.java,v 1.3 2005-11-07 18:08:07 aschild Exp $
  */
 
 public class XlsStatement implements Statement
@@ -334,17 +334,24 @@ public boolean getMoreResults(int current)
       throw new SQLException("Data file '" + fileName + "'  not readable !");
     }
 
-    XlsReader reader;
+    IXlsReader reader;
     try
     {
-      reader = new XlsReader(fileName, connection.getSeperator(), connection.isSuppressHeaders(), connection.getStringDateFormat());
+	Class newClass= Class.forName(connection.getXlsReaderClass());
+	reader= (IXlsReader) newClass.newInstance();
+	
+	reader.setSeparator(connection.getSeperator());
+	reader.setSuppressHeaders(connection.isSuppressHeaders());
+	reader.setStringDateFormat(connection.getStringDateFormat());
+	reader.setFileName(fileName);
+	reader.openFile();
     }
     catch (Exception e)
     {
       throw new SQLException("Error reading data file. Message was: " + e);
     }
 
-    return new XlsResultSet(this,reader,parser.getTableName(),parser.getColumnNames());
+    return new XlsResultSet(this,   reader,    parser.getTableName(),parser.getColumnNames());
   }
 
 

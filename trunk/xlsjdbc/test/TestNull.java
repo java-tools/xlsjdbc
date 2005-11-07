@@ -45,6 +45,8 @@ public class TestNull extends TestCase {
             while (results.next())
             {
                 String thisCountry= results.getString("Land");
+                java.sql.Date thisDate= results.getDate("AnmeldedatumDat");
+                java.sql.Date thisDate2= results.getDate("Zahlungsdatum");
                 
                 rCount++;
                 // System.out.println("Current row: "+rCount);
