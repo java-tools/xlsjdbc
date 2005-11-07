@@ -21,10 +21,16 @@ public class TestNull extends TestCase {
 
     protected void tearDown() throws Exception {
     }
+
+    public void testNull()
+    {
+	testNull("org.aarboard.jdbc.xls.POIReader");
+	testNull("org.aarboard.jdbc.xls.JXLReader");
+    }
     
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
-    public void testNull()
+    public void testNull(String readerClass)
     {
         String jdbcClassName= "org.aarboard.jdbc.xls.XlsDriver";
         String jdbcURL= "jdbc:aarboard:xls:C:/Develop/Sourceforge/xlsjdbc/test/testdata/";
@@ -36,7 +42,9 @@ public class TestNull extends TestCase {
         try
         {
             Class.forName(jdbcClassName);
-            java.sql.Connection conn= java.sql.DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword );  
+	    java.util.Properties info= new java.util.Properties();
+	    info.setProperty(org.aarboard.jdbc.xls.XlsDriver.XLS_READER_CLASS, readerClass);
+            java.sql.Connection conn= java.sql.DriverManager.getConnection(jdbcURL, info);  
 
             // create a Statement object to execute the query with
             java.sql.Statement stmt = conn.createStatement();
@@ -49,7 +57,10 @@ public class TestNull extends TestCase {
                 java.sql.Date thisDate2= results.getDate("Zahlungsdatum");
                 
                 rCount++;
-                // System.out.println("Current row: "+rCount);
+		if (rCount == 1092)
+		{
+		    System.out.println("Current row: "+rCount);
+		}
             }
             assertTrue("Did not find expected "+nCount+" rows, but "+rCount, rCount == nCount);
             results.close();

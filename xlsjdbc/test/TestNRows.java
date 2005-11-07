@@ -12,21 +12,25 @@ import junit.framework.*;
  */
 public class TestNRows extends TestCase {
     
-    public TestNRows(String testName) {
+    public TestNRows(String testName) 
+    {
         super(testName);
     }
 
-    public void test51Rows()
+    public void testNRows()
     {
-        doTestNRows(10);
-        doTestNRows(51);
-        doTestNRows(1017);
+        doTestNRows(10, "org.aarboard.jdbc.xls.POIReader");
+        doTestNRows(10, "org.aarboard.jdbc.xls.JXLReader");
+        doTestNRows(51, "org.aarboard.jdbc.xls.POIReader");
+        doTestNRows(51, "org.aarboard.jdbc.xls.JXLReader");
+        doTestNRows(1017, "org.aarboard.jdbc.xls.JXLReader");
+        doTestNRows(1017, "org.aarboard.jdbc.xls.POIReader");
     }
     
     
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
-    public void doTestNRows(int nCount)
+    public void doTestNRows(int nCount, String readerClass)
     {
         String jdbcClassName= "org.aarboard.jdbc.xls.XlsDriver";
         String jdbcURL= "jdbc:aarboard:xls:C:/Develop/Sourceforge/xlsjdbc/test/testdata/";
@@ -36,8 +40,11 @@ public class TestNRows extends TestCase {
         
         try
         {
+	    java.util.Properties info= new java.util.Properties();
+	    info.setProperty(org.aarboard.jdbc.xls.XlsDriver.XLS_READER_CLASS, readerClass);
+	    
             Class.forName(jdbcClassName);
-            java.sql.Connection conn= java.sql.DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword );  
+            java.sql.Connection conn= java.sql.DriverManager.getConnection(jdbcURL, info);  
 
             // create a Statement object to execute the query with
             java.sql.Statement stmt = conn.createStatement();
