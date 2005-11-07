@@ -45,7 +45,7 @@ import org.apache.poi.hssf.util.*;
  * @author Jonathan Ackerman
  * @author Sander Brienen
  * @author Stuart Mottram (fritto)
- * @version $Id: JXLReader.java,v 1.1 2005-11-07 18:08:07 aschild Exp $
+ * @version $Id: JXLReader.java,v 1.2 2005-11-07 21:16:08 aschild Exp $
  * @created 25 November 2001
  */
 
@@ -64,6 +64,7 @@ public class JXLReader implements IXlsReader
     private boolean suppressHeaders = false;
     private String stringDateFormat= null;
     private String fileName= null;
+    private int	inputRows= 0;
 
 
   /**
@@ -130,13 +131,12 @@ public class JXLReader implements IXlsReader
     {
       // No column names available. Read first data line and determine number of colums.
 	int nColumns= input.getColumns();
-        cRow++;
 	columnNames = new String[nColumns];
 	for (int i = 0; i < nColumns; i++)
 	{
 	    columnNames[i] = "COLUMN" + String.valueOf(i+1);
 	}
-	// throw away.
+	cRow= -1;
     }
     else
     {
@@ -144,10 +144,10 @@ public class JXLReader implements IXlsReader
 	columnNames = new String[nColumns];
 	for (int i = 0; i < nColumns; i++)
 	{
-            columnNames[i] = input.getCell(cRow, i).getContents().toUpperCase();
+            columnNames[i] = input.getCell(i, cRow).getContents().toUpperCase();
 	}
-        cRow++;
     }
+    inputRows= input.getRows();
   }
   
   
@@ -176,8 +176,12 @@ public class JXLReader implements IXlsReader
 
   public String getColumn(int columnIndex)
   {
-	jxl.Cell thisCell= input.getCell(cRow, columnIndex);
-	return thisCell.getContents();
+	jxl.Cell cellData= input.getCell(columnIndex, cRow);
+	if (cellData.getType() == jxl.CellType.EMPTY)
+	{
+	    return null;
+	}
+	return cellData.getContents();
   }
   
   /**
@@ -190,11 +194,15 @@ public class JXLReader implements IXlsReader
   
   public java.util.Date getColumnDate(int columnIndex) throws java.text.ParseException
   {
-      jxl.Cell cellData= input.getCell(cRow, columnIndex);
+      jxl.Cell cellData= input.getCell(columnIndex, cRow);
       java.util.Date retVal= null;
+      if (cellData.getType() == jxl.CellType.EMPTY)
+      {
+	  return null;
+      }
       try
       {
-	  jxl.DateCell dCell= (jxl.DateCell) cellData;
+	    jxl.DateCell dCell= (jxl.DateCell) cellData;
             retVal= dCell.getDate();
       }
       catch (NumberFormatException e)
@@ -228,10 +236,15 @@ public class JXLReader implements IXlsReader
   
   public boolean getColumnBoolean(int columnIndex)
   {
-      jxl.Cell thisCell= input.getCell(cRow, columnIndex);
+      jxl.Cell cellData= input.getCell(columnIndex, cRow);
+      if (cellData.getType() == jxl.CellType.EMPTY)
+      {
+	  return false;
+      }
+      
 //      if (thisCell.getType() == jxl.BooleanCell)
       {
-	  jxl.BooleanCell bData= (jxl.BooleanCell) thisCell;
+	  jxl.BooleanCell bData= (jxl.BooleanCell) cellData;
 	  return bData.getValue();
       }
   }
@@ -246,10 +259,14 @@ public class JXLReader implements IXlsReader
   
   public double getColumnDouble(int columnIndex)
   {
-      jxl.Cell thisCell= input.getCell(cRow, columnIndex);
+      jxl.Cell cellData= input.getCell(columnIndex, cRow);
+      if (cellData.getType() == jxl.CellType.EMPTY)
+      {
+	  return 0;
+      }
 //      if (thisCell.getType() == jxl.NumberCell)
       {
-	  jxl.NumberCell bData= (jxl.NumberCell) thisCell;
+	  jxl.NumberCell bData= (jxl.NumberCell) cellData;
 	  return bData.getValue();
       }
   }
@@ -264,10 +281,14 @@ public class JXLReader implements IXlsReader
   
   public int getColumnInt(int columnIndex)
   {
-      jxl.Cell thisCell= input.getCell(cRow, columnIndex);
+      jxl.Cell cellData= input.getCell(columnIndex, cRow);
+      if (cellData.getType() == jxl.CellType.EMPTY)
+      {
+	  return 0;
+      }
 //      if (thisCell.getType() == jxl.NumberCell)
       {
-	  jxl.NumberCell bData= (jxl.NumberCell) thisCell;
+	  jxl.NumberCell bData= (jxl.NumberCell) cellData;
 	  return (int) bData.getValue();
       }
   }
@@ -282,10 +303,14 @@ public class JXLReader implements IXlsReader
   
   public long getColumnLong(int columnIndex)
   {
-      jxl.Cell thisCell= input.getCell(cRow, columnIndex);
+      jxl.Cell cellData= input.getCell(columnIndex, cRow);
+      if (cellData.getType() == jxl.CellType.EMPTY)
+      {
+	  return 0;
+      }
 //      if (thisCell.getType() == jxl.NumberCell)
       {
-	  jxl.NumberCell bData= (jxl.NumberCell) thisCell;
+	  jxl.NumberCell bData= (jxl.NumberCell) cellData;
 	  return (long) bData.getValue();
       }
   }
@@ -300,10 +325,14 @@ public class JXLReader implements IXlsReader
   
   public short getColumnShort(int columnIndex)
   {
-      jxl.Cell thisCell= input.getCell(cRow, columnIndex);
+      jxl.Cell cellData= input.getCell(columnIndex, cRow);
+      if (cellData.getType() == jxl.CellType.EMPTY)
+      {
+	  return 0;
+      }
 //      if (thisCell.getType() == jxl.NumberCell)
       {
-	  jxl.NumberCell bData= (jxl.NumberCell) thisCell;
+	  jxl.NumberCell bData= (jxl.NumberCell) cellData;
 	  return (short) bData.getValue();
       }
   }
@@ -481,8 +510,9 @@ public class JXLReader implements IXlsReader
   public boolean next() throws Exception
   {
       boolean retVal= false;
-      
-      if (cRow > input.getRows())
+
+      // System.out.println(cRow);
+      if (cRow >= inputRows-1)
       {
 	  retVal= false;
       }
@@ -491,7 +521,7 @@ public class JXLReader implements IXlsReader
 	  cRow++;
 	  retVal= true;
       }
-      return true;
+      return retVal;
   }
 
 

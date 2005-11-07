@@ -28,7 +28,7 @@ import java.util.Calendar;
  * @author     Andre Schild
  * @author     Jonathan Ackerman
  * @created    25 November 2001
- * @version    $Id: XlsResultSet.java,v 1.4 2005-11-07 18:08:07 aschild Exp $
+ * @version    $Id: XlsResultSet.java,v 1.5 2005-11-07 21:16:08 aschild Exp $
  */
 public class XlsResultSet implements ResultSet
 {
@@ -306,7 +306,14 @@ public class XlsResultSet implements ResultSet
     try
     {
         java.util.Date retVal= reader.getColumnDate(columnNames[columnIndex]);
-        return new java.sql.Date(retVal.getTime());
+	if (retVal != null)
+	{
+	    return new java.sql.Date(retVal.getTime());
+	}
+	else
+	{
+	    return null;
+	}
     }
     catch (java.lang.NullPointerException ne)
     {
