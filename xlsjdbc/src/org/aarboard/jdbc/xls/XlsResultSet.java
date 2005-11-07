@@ -28,12 +28,12 @@ import java.util.Calendar;
  * @author     Andre Schild
  * @author     Jonathan Ackerman
  * @created    25 November 2001
- * @version    $Id: XlsResultSet.java,v 1.3 2005-04-20 09:38:28 aschild Exp $
+ * @version    $Id: XlsResultSet.java,v 1.4 2005-11-07 18:08:07 aschild Exp $
  */
 public class XlsResultSet implements ResultSet
 {
   protected XlsStatement statement;
-  protected XlsReader reader;
+  protected IXlsReader reader;
   protected String[] columnNames;
   protected String tableName;
   protected ResultSetMetaData resultSetMetaData;
@@ -47,7 +47,7 @@ public class XlsResultSet implements ResultSet
    * @param  columnNames  Description of Parameter
    * @since
    */
-  protected XlsResultSet(XlsStatement statement, XlsReader reader, String tableName,String[] columnNames)
+  protected XlsResultSet(XlsStatement statement, IXlsReader reader, String tableName,String[] columnNames)
   {
     this.statement = statement;
     this.reader = reader;
@@ -164,7 +164,7 @@ public class XlsResultSet implements ResultSet
   {
     try
     {
-        return reader.getColumnBoolean(columnNames[columnIndex]);
+        return reader.getColumnBoolean(columnIndex);
     }
     catch (Exception e)
     {

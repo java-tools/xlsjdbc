@@ -27,7 +27,7 @@ import java.util.Hashtable;
  * @author     Jonathan Ackerman
  * @author     Sander Brienen
  * @created    25 November 2001
- * @version    $Id: XlsConnection.java,v 1.2 2004-12-10 12:08:26 aschild Exp $
+ * @version    $Id: XlsConnection.java,v 1.3 2005-11-07 18:08:07 aschild Exp $
  */
 
 public class XlsConnection implements Connection
@@ -37,6 +37,7 @@ public class XlsConnection implements Connection
   private String stringDateFormat = null;
   private char separator=',';
   private boolean suppressHeaders=false;
+  private String xlsReaderClass= "org.aarboard.jdbc.xls.POIReader";
 
 
   /**
@@ -71,6 +72,7 @@ public class XlsConnection implements Connection
       separator     = info.getProperty(XlsDriver.SEPARATOR,new Character(separator).toString()).charAt(0);
       suppressHeaders = Boolean.valueOf(info.getProperty(XlsDriver.SUPPRESS_HEADERS,String.valueOf(suppressHeaders))).booleanValue();
       stringDateFormat = info.getProperty(XlsDriver.STRING_DATE_FORMAT, null);
+      xlsReaderClass = info.getProperty(XlsDriver.XLS_READER_CLASS, "org.aarboard.jdbc.xls.POIReader");
     }
     DriverManager.println("XlsJdbc - XlsConnection() - filePath=" + filePath +
                                                     " - file extension=" + fileExtension +
@@ -497,5 +499,13 @@ public class XlsConnection implements Connection
 {
     throw new SQLException("Not Supported !");
   }
+
+    public String getXlsReaderClass() {
+        return xlsReaderClass;
+    }
+
+    public void setXlsReaderClass(String xlsReaderClass) {
+        this.xlsReaderClass = xlsReaderClass;
+    }
 }
 
