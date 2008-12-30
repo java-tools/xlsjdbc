@@ -29,142 +29,137 @@ import java.io.File;
  * @author     JD Evora
  * @version    $Id: XlsDriver.java,v 1.7 2005-11-07 21:16:08 aschild Exp $
  */
-
 public class XlsDriver implements Driver
 {
-  public static final String FILE_EXTENSION="fileExtension";
-  public static final String SEPARATOR="separator";
-  public static final String SUPPRESS_HEADERS="suppressHeaders";
-  public static final String STRING_DATE_FORMAT="stringDateFormat"; /// The format to use when converting a string into date in getDate calls
-  private final static String URL_PREFIX = "jdbc:aarboard:xls:";
-  public static final String XLS_READER_CLASS= "XlsReaderClass";    /// What class to use for acessing xls files, can be either "org.aarboard.jdbc.xls.POIReader" or "org.aarboard.jdbc.xls.JXLReader"
-  private Properties info = null;
 
+    public static final String FILE_EXTENSION = "fileExtension";
+    public static final String SEPARATOR = "separator";
+    public static final String SUPPRESS_HEADERS = "suppressHeaders";
+    public static final String STRING_DATE_FORMAT = "stringDateFormat"; /// The format to use when converting a string into date in getDate calls
+    private final static String URL_PREFIX = "jdbc:aarboard:xls:";
+    public static final String XLS_READER_CLASS = "XlsReaderClass";    /// What class to use for acessing xls files, can be either "org.aarboard.jdbc.xls.POIReader" or "org.aarboard.jdbc.xls.JXLReader"
+    private Properties info = null;
 
-  /**
-   *Gets the propertyInfo attribute of the XlsDriver object
-   *
-   * @param  url               Description of Parameter
-   * @param  info              Description of Parameter
-   * @return                   The propertyInfo value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
-       throws SQLException
-  {
-    return new DriverPropertyInfo[0];
-  }
-
-
-  /**
-   *Gets the majorVersion attribute of the XlsDriver object
-   *
-   * @return    The majorVersion value
-   * @since
-   */
-  public int getMajorVersion()
-  {
-    return 1;
-  }
-
-
-  /**
-   *Gets the minorVersion attribute of the XlsDriver object
-   *
-   * @return    The minorVersion value
-   * @since
-   */
-  public int getMinorVersion()
-  {
-    return 6;
-  }
-
-
-  /**
-   *Description of the Method
-   *
-   * @param  url               Description of Parameter
-   * @param  info              Description of Parameter
-   * @return                   Description of the Returned Value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public Connection connect(String url, Properties info) throws SQLException
-  {
-    DriverManager.println("XlsJdbc - XlsDriver:connect() - url=" + url);
-    if (url == null)
+    /**
+     *Gets the propertyInfo attribute of the XlsDriver object
+     *
+     * @param  url               Description of Parameter
+     * @param  info              Description of Parameter
+     * @return                   The propertyInfo value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
+            throws SQLException
     {
-        throw new SQLException("Null path specified");
-    }
-    // check for correct url
-    if (!url.startsWith(URL_PREFIX))
-    {
-        throw new SQLException("URL does not start with "+URL_PREFIX);
-    }
-    // get filepath from url
-    String filePath = url.substring(URL_PREFIX.length());
-    if (!filePath.endsWith(File.separator))
-    {
-      filePath += File.separator;
+        return new DriverPropertyInfo[0];
     }
 
-    DriverManager.println("XlsJdbc - XlsDriver:connect() - filePath=" + filePath);
-
-    // check if filepath is a correct path.
-    File checkPath = new File(filePath);
-    if (!checkPath.exists())
+    /**
+     *Gets the majorVersion attribute of the XlsDriver object
+     *
+     * @return    The majorVersion value
+     * @since
+     */
+    public int getMajorVersion()
     {
-      throw new SQLException("Specified path '" + filePath + "' not found !");
-    }
-    if (!checkPath.isDirectory())
-    {
-      throw new SQLException(
-          "Specified path '" + filePath + "' is  not a directory !");
+        return 1;
     }
 
-    return new XlsConnection(filePath, info);
-  }
-
-
-  /**
-   *Description of the Method
-   *
-   * @param  url               Description of Parameter
-   * @return                   Description of the Returned Value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public boolean acceptsURL(String url) throws SQLException
-  {
-    DriverManager.println("XlsJdbc - XlsDriver:accept() - url=" + url);
-    return url.startsWith(URL_PREFIX);
-  }
-
-
-  /**
-   *Description of the Method
-   *
-   * @return    Description of the Returned Value
-   * @since
-   */
-  public boolean jdbcCompliant()
-  {
-    return false;
-  }
-  // This static block inits the driver when the class is loaded by the JVM.
-  static
-  {
-    try
+    /**
+     *Gets the minorVersion attribute of the XlsDriver object
+     *
+     * @return    The minorVersion value
+     * @since
+     */
+    public int getMinorVersion()
     {
-      java.sql.DriverManager.registerDriver(new XlsDriver());
+        return 6;
     }
-    catch (SQLException e)
+
+    /**
+     *Description of the Method
+     *
+     * @param  url               Description of Parameter
+     * @param  info              Description of Parameter
+     * @return                   Description of the Returned Value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public Connection connect(String url, Properties info) throws SQLException
     {
-      throw new RuntimeException(
-          "FATAL ERROR: Could not initialise XLS driver ! Message was: "
-           + e.getMessage());
+        DriverManager.println("XlsJdbc - XlsDriver:connect() - url=" + url);
+        if (url == null)
+        {
+            throw new SQLException("Null path specified");
+        }
+        // check for correct url
+        if (!url.startsWith(URL_PREFIX))
+        {
+            throw new SQLException("URL does not start with " + URL_PREFIX);
+        }
+        // get filepath from url
+        String filePath = url.substring(URL_PREFIX.length());
+        if (!filePath.endsWith(File.separator))
+        {
+            filePath += File.separator;
+        }
+
+        DriverManager.println("XlsJdbc - XlsDriver:connect() - filePath=" + filePath);
+
+        // check if filepath is a correct path.
+        File checkPath = new File(filePath);
+        if (!checkPath.exists())
+        {
+            throw new SQLException("Specified path '" + filePath + "' not found !");
+        }
+        if (!checkPath.isDirectory())
+        {
+            throw new SQLException(
+                    "Specified path '" + filePath + "' is  not a directory !");
+        }
+
+        return new XlsConnection(filePath, info);
     }
-  }
+
+    /**
+     *Description of the Method
+     *
+     * @param  url               Description of Parameter
+     * @return                   Description of the Returned Value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public boolean acceptsURL(String url) throws SQLException
+    {
+        DriverManager.println("XlsJdbc - XlsDriver:accept() - url=" + url);
+        return url.startsWith(URL_PREFIX);
+    }
+
+    /**
+     *Description of the Method
+     *
+     * @return    Description of the Returned Value
+     * @since
+     */
+    public boolean jdbcCompliant()
+    {
+        return false;
+    }
+    // This static block inits the driver when the class is loaded by the JVM.
+
+
+    static
+    {
+        try
+        {
+            java.sql.DriverManager.registerDriver(new XlsDriver());
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(
+                    "FATAL ERROR: Could not initialise XLS driver ! Message was: " + e.getMessage());
+        }
+    }
 }
 

@@ -1,24 +1,37 @@
 /*
+ *  XlsJdbc - a JDBC driver for XLS files
+ *  Copyright (C) 2002 Andre Schild
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Lesser General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2.1 of the License, or (at your option) any later version.
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *  You should have received a copy of the GNU Lesser General Public
+ *  License along with this library; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
  * IXlsReader.java
  *
  * Created on 7. November 2005, 18:11
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
-
 package org.aarboard.jdbc.xls;
 
 import java.text.ParseException;
 import java.util.Date;
 
 /**
- *
+ * Interface for hiding jxl and poi implementation details
+ * 
  * @author sca
  */
-public interface IXlsReader 
+public interface IXlsReader
 {
-    
+
     public void openFile() throws java.lang.Exception;
 
     /**
@@ -190,13 +203,19 @@ public interface IXlsReader
      */
     boolean next() throws Exception;
 
-    
     public char getSeparator();
+
     public void setSeparator(char separator);
+
     public boolean isSuppressHeaders();
+
     public void setSuppressHeaders(boolean suppressHeaders);
+
     public String getStringDateFormat();
+
     public void setStringDateFormat(String stringDateFormat);
+
     public String getFileName();
-    public void setFileName(String fileName);    
+
+    public void setFileName(String fileName);
 }
