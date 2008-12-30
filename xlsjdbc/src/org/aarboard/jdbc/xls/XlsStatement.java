@@ -29,488 +29,456 @@ import org.relique.jdbc.csv.*;
  * @created    25 November 2001
  * @version    $Id: XlsStatement.java,v 1.3 2005-11-07 18:08:07 aschild Exp $
  */
-
 public class XlsStatement implements Statement
 {
-  private XlsConnection connection;
 
+    private XlsConnection connection;
 
-  /**
-   *Constructor for the XlsStatement object
-   *
-   * @param  connection  Description of Parameter
-   * @since
-   */
-  protected XlsStatement(XlsConnection connection)
-  {
-    DriverManager.println("XlsJdbc - XlsStatement() - connection=" + connection);
-    this.connection = connection;
-  }
-
-
-  /**
-   *Sets the maxFieldSize attribute of the XlsStatement object
-   *
-   * @param  p0                The new maxFieldSize value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void setMaxFieldSize(int p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Sets the maxRows attribute of the XlsStatement object
-   *
-   * @param  p0                The new maxRows value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void setMaxRows(int p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Sets the escapeProcessing attribute of the XlsStatement object
-   *
-   * @param  p0                The new escapeProcessing value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void setEscapeProcessing(boolean p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Sets the queryTimeout attribute of the XlsStatement object
-   *
-   * @param  p0                The new queryTimeout value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void setQueryTimeout(int p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Sets the cursorName attribute of the XlsStatement object
-   *
-   * @param  p0                The new cursorName value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void setCursorName(String p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Sets the fetchDirection attribute of the XlsStatement object
-   *
-   * @param  p0                The new fetchDirection value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void setFetchDirection(int p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Sets the fetchSize attribute of the XlsStatement object
-   *
-   * @param  p0                The new fetchSize value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void setFetchSize(int p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the maxFieldSize attribute of the XlsStatement object
-   *
-   * @return                   The maxFieldSize value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int getMaxFieldSize() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the maxRows attribute of the XlsStatement object
-   *
-   * @return                   The maxRows value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int getMaxRows() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the queryTimeout attribute of the XlsStatement object
-   *
-   * @return                   The queryTimeout value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int getQueryTimeout() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the warnings attribute of the XlsStatement object
-   *
-   * @return                   The warnings value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public SQLWarning getWarnings() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the resultSet attribute of the XlsStatement object
-   *
-   * @return                   The resultSet value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public ResultSet getResultSet() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the updateCount attribute of the XlsStatement object
-   *
-   * @return                   The updateCount value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int getUpdateCount() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the moreResults attribute of the XlsStatement object
-   *
-   * @return                   The moreResults value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public boolean getMoreResults() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-public boolean getMoreResults(int current)
-                       throws SQLException
-{
-    throw new SQLException("Not Supported !");
-}
-
-  /**
-   *Gets the fetchDirection attribute of the XlsStatement object
-   *
-   * @return                   The fetchDirection value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int getFetchDirection() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the fetchSize attribute of the XlsStatement object
-   *
-   * @return                   The fetchSize value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int getFetchSize() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the resultSetConcurrency attribute of the XlsStatement object
-   *
-   * @return                   The resultSetConcurrency value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int getResultSetConcurrency() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the resultSetType attribute of the XlsStatement object
-   *
-   * @return                   The resultSetType value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int getResultSetType() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-
-
-  /**
-   *Gets the connection attribute of the XlsStatement object
-   *
-   * @return                   The connection value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public Connection getConnection() throws SQLException
-  {
-    return connection;
-  }
-
-
-  /**
-   *Description of the Method
-   *
-   * @param  sql               Description of Parameter
-   * @return                   Description of the Returned Value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public ResultSet executeQuery(String sql) throws SQLException
-  {
-    DriverManager.println("XlsJdbc - XlsStatement:executeQuery() - sql= " + sql);
-    SqlParser parser = new SqlParser();
-    try
+    /**
+     *Constructor for the XlsStatement object
+     *
+     * @param  connection  Description of Parameter
+     * @since
+     */
+    protected XlsStatement(XlsConnection connection)
     {
-      parser.parse(sql);
-    }
-    catch (Exception e)
-    {
-      throw new SQLException("Syntax Error. " + e.getMessage());
+        DriverManager.println("XlsJdbc - XlsStatement() - connection=" + connection);
+        this.connection = connection;
     }
 
-    String fileName = connection.getFilePath() + parser.getTableName() + connection.getExtension();
-    File checkFile = new File(fileName);
-
-    if (!checkFile.exists())
+    /**
+     *Sets the maxFieldSize attribute of the XlsStatement object
+     *
+     * @param  p0                The new maxFieldSize value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void setMaxFieldSize(int p0) throws SQLException
     {
-      throw new SQLException("Cannot open data file '" + fileName + "'  !");
+        throw new SQLException("Not Supported !");
     }
 
-    if (!checkFile.canRead())
+    /**
+     *Sets the maxRows attribute of the XlsStatement object
+     *
+     * @param  p0                The new maxRows value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void setMaxRows(int p0) throws SQLException
     {
-      throw new SQLException("Data file '" + fileName + "'  not readable !");
+        throw new SQLException("Not Supported !");
     }
 
-    IXlsReader reader;
-    try
+    /**
+     *Sets the escapeProcessing attribute of the XlsStatement object
+     *
+     * @param  p0                The new escapeProcessing value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void setEscapeProcessing(boolean p0) throws SQLException
     {
-	Class newClass= Class.forName(connection.getXlsReaderClass());
-	reader= (IXlsReader) newClass.newInstance();
-	
-	reader.setSeparator(connection.getSeperator());
-	reader.setSuppressHeaders(connection.isSuppressHeaders());
-	reader.setStringDateFormat(connection.getStringDateFormat());
-	reader.setFileName(fileName);
-	reader.openFile();
-    }
-    catch (Exception e)
-    {
-      throw new SQLException("Error reading data file. Message was: " + e);
+        throw new SQLException("Not Supported !");
     }
 
-    return new XlsResultSet(this,   reader,    parser.getTableName(),parser.getColumnNames());
-  }
+    /**
+     *Sets the queryTimeout attribute of the XlsStatement object
+     *
+     * @param  p0                The new queryTimeout value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void setQueryTimeout(int p0) throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
+    /**
+     *Sets the cursorName attribute of the XlsStatement object
+     *
+     * @param  p0                The new cursorName value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void setCursorName(String p0) throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-  /**
-   *Description of the Method
-   *
-   * @param  sql               Description of Parameter
-   * @return                   Description of the Returned Value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int executeUpdate(String sql) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
+    /**
+     *Sets the fetchDirection attribute of the XlsStatement object
+     *
+     * @param  p0                The new fetchDirection value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void setFetchDirection(int p0) throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
+    /**
+     *Sets the fetchSize attribute of the XlsStatement object
+     *
+     * @param  p0                The new fetchSize value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void setFetchSize(int p0) throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-  /**
-   *Description of the Method
-   *
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void close() throws SQLException { }
+    /**
+     *Gets the maxFieldSize attribute of the XlsStatement object
+     *
+     * @return                   The maxFieldSize value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int getMaxFieldSize() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
+    /**
+     *Gets the maxRows attribute of the XlsStatement object
+     *
+     * @return                   The maxRows value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int getMaxRows() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-  /**
-   *Description of the Method
-   *
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void cancel() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
+    /**
+     *Gets the queryTimeout attribute of the XlsStatement object
+     *
+     * @return                   The queryTimeout value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int getQueryTimeout() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
+    /**
+     *Gets the warnings attribute of the XlsStatement object
+     *
+     * @return                   The warnings value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public SQLWarning getWarnings() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-  /**
-   *Description of the Method
-   *
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void clearWarnings() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
+    /**
+     *Gets the resultSet attribute of the XlsStatement object
+     *
+     * @return                   The resultSet value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public ResultSet getResultSet() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
+    /**
+     *Gets the updateCount attribute of the XlsStatement object
+     *
+     * @return                   The updateCount value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int getUpdateCount() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-  /**
-   *Description of the Method
-   *
-   * @param  p0                Description of Parameter
-   * @return                   Description of the Returned Value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public boolean execute(String p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
+    /**
+     *Gets the moreResults attribute of the XlsStatement object
+     *
+     * @return                   The moreResults value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public boolean getMoreResults() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
+    public boolean getMoreResults(int current)
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-  /**
-   *Adds a feature to the Batch attribute of the XlsStatement object
-   *
-   * @param  p0                The feature to be added to the Batch attribute
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void addBatch(String p0) throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
+    /**
+     *Gets the fetchDirection attribute of the XlsStatement object
+     *
+     * @return                   The fetchDirection value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int getFetchDirection() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
+    /**
+     *Gets the fetchSize attribute of the XlsStatement object
+     *
+     * @return                   The fetchSize value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int getFetchSize() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-  /**
-   *Description of the Method
-   *
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public void clearBatch() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
+    /**
+     *Gets the resultSetConcurrency attribute of the XlsStatement object
+     *
+     * @return                   The resultSetConcurrency value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int getResultSetConcurrency() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
+    /**
+     *Gets the resultSetType attribute of the XlsStatement object
+     *
+     * @return                   The resultSetType value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int getResultSetType() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-  /**
-   *Description of the Method
-   *
-   * @return                   Description of the Returned Value
-   * @exception  SQLException  Description of Exception
-   * @since
-   */
-  public int[] executeBatch() throws SQLException
-  {
-    throw new SQLException("Not Supported !");
-  }
-  
-public ResultSet getGeneratedKeys()
-                           throws SQLException
-{
-    throw new SQLException("Not Supported !");
-}
+    /**
+     *Gets the connection attribute of the XlsStatement object
+     *
+     * @return                   The connection value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public Connection getConnection() throws SQLException
+    {
+        return connection;
+    }
 
+    /**
+     *Description of the Method
+     *
+     * @param  sql               Description of Parameter
+     * @return                   Description of the Returned Value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public ResultSet executeQuery(String sql) throws SQLException
+    {
+        DriverManager.println("XlsJdbc - XlsStatement:executeQuery() - sql= " + sql);
+        SqlParser parser = new SqlParser();
+        try
+        {
+            parser.parse(sql);
+        }
+        catch (Exception e)
+        {
+            throw new SQLException("Syntax Error. " + e.getMessage());
+        }
 
+        String fileName = connection.getFilePath() + parser.getTableName() + connection.getExtension();
+        File checkFile = new File(fileName);
 
-public int executeUpdate(String sql,
-                         int autoGeneratedKeys)
-                  throws SQLException
-{
-    throw new SQLException("Not Supported !");
-}
+        if (!checkFile.exists())
+        {
+            throw new SQLException("Cannot open data file '" + fileName + "'  !");
+        }
 
+        if (!checkFile.canRead())
+        {
+            throw new SQLException("Data file '" + fileName + "'  not readable !");
+        }
 
-public int executeUpdate(String sql,
-                         int[] columnIndexes)
-                  throws SQLException
-{
-    throw new SQLException("Not Supported !");
-}
+        IXlsReader reader;
+        try
+        {
+            Class newClass = Class.forName(connection.getXlsReaderClass());
+            reader = (IXlsReader) newClass.newInstance();
 
-public int executeUpdate(String sql,
-                         String[] columnNames)
-                  throws SQLException
-{
-    throw new SQLException("Not Supported !");
-}
- 
-public boolean execute(String sql,
-                       int autoGeneratedKeys)
-                throws SQLException
-{
-    throw new SQLException("Not Supported !");
-}
+            reader.setSeparator(connection.getSeperator());
+            reader.setSuppressHeaders(connection.isSuppressHeaders());
+            reader.setStringDateFormat(connection.getStringDateFormat());
+            reader.setFileName(fileName);
+            reader.openFile();
+        }
+        catch (Exception e)
+        {
+            throw new SQLException("Error reading data file. Message was: " + e);
+        }
 
-public boolean execute(String sql,
-                       int[] columnIndexes)
-                throws SQLException
+        return new XlsResultSet(this, reader, parser.getTableName(), parser.getColumnNames());
+    }
 
-{
-    throw new SQLException("Not Supported !");
-}
+    /**
+     *Description of the Method
+     *
+     * @param  sql               Description of Parameter
+     * @return                   Description of the Returned Value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int executeUpdate(String sql) throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-public boolean execute(String sql,
-                       String[] columnNames)
-                throws SQLException
-{
-    throw new SQLException("Not Supported !");
-}
+    /**
+     *Description of the Method
+     *
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void close() throws SQLException
+    {
+    }
 
+    /**
+     *Description of the Method
+     *
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void cancel() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 
-public int getResultSetHoldability()
-                            throws SQLException
-{
-    throw new SQLException("Not Supported !");
-}
-                            
+    /**
+     *Description of the Method
+     *
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void clearWarnings() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    /**
+     *Description of the Method
+     *
+     * @param  p0                Description of Parameter
+     * @return                   Description of the Returned Value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public boolean execute(String p0) throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    /**
+     *Adds a feature to the Batch attribute of the XlsStatement object
+     *
+     * @param  p0                The feature to be added to the Batch attribute
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void addBatch(String p0) throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    /**
+     *Description of the Method
+     *
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public void clearBatch() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    /**
+     *Description of the Method
+     *
+     * @return                   Description of the Returned Value
+     * @exception  SQLException  Description of Exception
+     * @since
+     */
+    public int[] executeBatch() throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    public ResultSet getGeneratedKeys()
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    public int executeUpdate(String sql,
+            int autoGeneratedKeys)
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    public int executeUpdate(String sql,
+            int[] columnIndexes)
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    public int executeUpdate(String sql,
+            String[] columnNames)
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    public boolean execute(String sql,
+            int autoGeneratedKeys)
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    public boolean execute(String sql,
+            int[] columnIndexes)
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    public boolean execute(String sql,
+            String[] columnNames)
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
+
+    public int getResultSetHoldability()
+            throws SQLException
+    {
+        throw new SQLException("Not Supported !");
+    }
 }
 
