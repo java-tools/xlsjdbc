@@ -1,3 +1,9 @@
+- Release 1.6.0 -
+2009.09.21 : Added fix to catch NPE errors when we did read non-existing header 
+             fields.
+	     Now empty or non-existent header columns are named COLUMNxx
+	     In the SQLException we now fill in the original Exception reason
+	     stack trace.
 - Release 1.5.0 -
 2005.04.20 : Catch NULL exceptions in getString and return NULL value 
 2005.01.07 : Better error descirption when using wrong/incorrect URL prefix 
@@ -28,7 +34,7 @@ So we did again a search for a package who could read xls files.
 We did not find a jdbc driver who could do this on any platform.
 If we where only targeting win32 platforms, then we could have
 used the jdbcodbc bridge, but...
-So we looked for a linrary who could at least read xls files
+So we looked for a library who could at least read xls files
 and once more we found something on sourceforge.
 
 So we now had the idea to adapt our cms to use the xlrd libraries.

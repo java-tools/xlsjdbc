@@ -127,7 +127,24 @@ public class POIReader implements IXlsReader
             columnNames = new String[data.getLastCellNum()];
             for (short i = 0; i < data.getLastCellNum(); i++)
             {
-                columnNames[i] = data.getCell(i).getStringCellValue().toUpperCase();
+
+                HSSFCell cell= data.getCell(i);
+                if (cell == null)
+                {
+                        columnNames[i] = "COLUMN" + String.valueOf(i + 1);
+                }
+                else
+                {
+                    String headerName= data.getCell(i).getStringCellValue();
+                    if (headerName == null || headerName.trim().length()==0)
+                    {
+                        columnNames[i] = "COLUMN" + String.valueOf(i + 1);
+                    }
+                    else
+                    {
+                        columnNames[i] = data.getCell(i).getStringCellValue().toUpperCase();
+                    }
+                }
             }
         }
     }
