@@ -328,7 +328,9 @@ public class XlsStatement implements Statement
         }
         catch (Exception e)
         {
-            throw new SQLException("Error reading data file. Message was: " + e);
+            SQLException ex= new SQLException("Error reading data file. Message was: " + e );
+            ex.setStackTrace(e.getStackTrace());
+            throw ex;
         }
 
         return new XlsResultSet(this, reader, parser.getTableName(), parser.getColumnNames());
