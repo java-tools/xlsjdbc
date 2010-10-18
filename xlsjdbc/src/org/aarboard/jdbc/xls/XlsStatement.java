@@ -288,6 +288,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public ResultSet executeQuery(String sql) throws SQLException
     {
         DriverManager.println("XlsJdbc - XlsStatement:executeQuery() - sql= " + sql);
@@ -344,6 +345,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int executeUpdate(String sql) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -355,6 +357,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void close() throws SQLException
     {
     }
@@ -365,6 +368,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void cancel() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -376,6 +380,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void clearWarnings() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -389,6 +394,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean execute(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -401,6 +407,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void addBatch(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -412,6 +419,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void clearBatch() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -482,5 +490,32 @@ public class XlsStatement implements Statement
     {
         throw new SQLException("Not Supported !");
     }
+
+    @Override
+    public boolean isPoolable() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isClosed() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setPoolable(boolean poolable) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
 }
 

@@ -215,6 +215,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public int getColumnType(int column) throws SQLException
     {
         return Types.VARCHAR;
@@ -222,6 +223,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public String getColumnTypeName(int column) throws SQLException
     {
         return String.class.getName();
@@ -229,6 +231,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public boolean isReadOnly(int column) throws SQLException
     {
         return true;
@@ -236,6 +239,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public boolean isWritable(int column) throws SQLException
     {
         return false;
@@ -243,9 +247,22 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public boolean isDefinitelyWritable(int column) throws SQLException
     {
         return false;
     }
+
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
 }
 
