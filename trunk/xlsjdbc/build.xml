@@ -73,7 +73,7 @@
     -->
     <target name="build-jar" depends="compile">
         <mkdir dir="dist"/>
-        <jar destfile="dist/xlsjdbc-1.6.jar">
+        <jar destfile="dist/xlsjdbc-1.6.1.jar">
                 <fileset dir="build/classes"/>
         </jar>
     </target>

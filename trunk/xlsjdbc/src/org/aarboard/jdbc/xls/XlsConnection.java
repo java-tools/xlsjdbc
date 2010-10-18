@@ -19,6 +19,7 @@ package org.aarboard.jdbc.xls;
 import java.sql.*;
 import java.util.Map;
 import java.util.Hashtable;
+import java.util.Properties;
 
 /**
  * This class implements the Connection interface for the XlsJdbc driver.
@@ -493,6 +494,7 @@ public class XlsConnection implements Connection
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public Statement createStatement(int resultSetType,
             int resultSetConcurrency,
             int resultSetHoldability)
@@ -510,5 +512,72 @@ public class XlsConnection implements Connection
     {
         this.xlsReaderClass = xlsReaderClass;
     }
+
+    @Override
+    public Blob createBlob() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Clob createClob() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Array createArrayOf(String typeName, Object[] elements) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public SQLXML createSQLXML() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public NClob createNClob() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Struct createStruct(String typeName, Object[] attributes) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Properties getClientInfo() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getClientInfo(String name) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isValid(int timeout) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setClientInfo(Properties properties) throws SQLClientInfoException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setClientInfo(String name, String value) throws SQLClientInfoException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+
 }
 
