@@ -53,6 +53,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setMaxFieldSize(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -65,6 +66,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setMaxRows(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -77,6 +79,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setEscapeProcessing(boolean p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -89,6 +92,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setQueryTimeout(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -101,6 +105,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setCursorName(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -113,6 +118,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setFetchDirection(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -125,6 +131,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setFetchSize(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -137,6 +144,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getMaxFieldSize() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -149,6 +157,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getMaxRows() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -161,6 +170,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getQueryTimeout() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -173,6 +183,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public SQLWarning getWarnings() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -185,6 +196,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public ResultSet getResultSet() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -197,6 +209,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getUpdateCount() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -209,11 +222,13 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean getMoreResults() throws SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public boolean getMoreResults(int current)
             throws SQLException
     {
@@ -227,6 +242,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getFetchDirection() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -239,6 +255,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getFetchSize() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -251,6 +268,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getResultSetConcurrency() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -263,6 +281,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getResultSetType() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -275,6 +294,7 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Connection getConnection() throws SQLException
     {
         return connection;
@@ -432,17 +452,20 @@ public class XlsStatement implements Statement
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int[] executeBatch() throws SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public ResultSet getGeneratedKeys()
             throws SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public int executeUpdate(String sql,
             int autoGeneratedKeys)
             throws SQLException
@@ -450,6 +473,7 @@ public class XlsStatement implements Statement
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public int executeUpdate(String sql,
             int[] columnIndexes)
             throws SQLException
@@ -457,6 +481,7 @@ public class XlsStatement implements Statement
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public int executeUpdate(String sql,
             String[] columnNames)
             throws SQLException
@@ -464,6 +489,7 @@ public class XlsStatement implements Statement
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public boolean execute(String sql,
             int autoGeneratedKeys)
             throws SQLException
@@ -471,6 +497,7 @@ public class XlsStatement implements Statement
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public boolean execute(String sql,
             int[] columnIndexes)
             throws SQLException
@@ -478,6 +505,7 @@ public class XlsStatement implements Statement
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public boolean execute(String sql,
             String[] columnNames)
             throws SQLException
@@ -485,6 +513,7 @@ public class XlsStatement implements Statement
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public int getResultSetHoldability()
             throws SQLException
     {
