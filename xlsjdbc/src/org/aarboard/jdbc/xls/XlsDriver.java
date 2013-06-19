@@ -36,7 +36,7 @@ public class XlsDriver implements Driver
     public static final String SEPARATOR = "separator";
     public static final String SUPPRESS_HEADERS = "suppressHeaders";
     public static final String STRING_DATE_FORMAT = "stringDateFormat"; /// The format to use when converting a string into date in getDate calls
-    private final static String URL_PREFIX = "jdbc:aarboard:xls:";
+    private final static String URL_PREFIX_XLS = "jdbc:aarboard:xls:";
     public static final String XLS_READER_CLASS = "XlsReaderClass";    /// What class to use for acessing xls files, can be either "org.aarboard.jdbc.xls.POIReader" or "org.aarboard.jdbc.xls.JXLReader"
     private Properties info = null;
 
@@ -77,7 +77,7 @@ public class XlsDriver implements Driver
     @Override
     public int getMinorVersion()
     {
-        return 6;
+        return 7;
     }
 
     /**
@@ -98,12 +98,13 @@ public class XlsDriver implements Driver
             throw new SQLException("Null path specified");
         }
         // check for correct url
-        if (!url.startsWith(URL_PREFIX))
+        if (!(url.startsWith(URL_PREFIX_XLS)))
         {
-            throw new SQLException("URL does not start with " + URL_PREFIX);
+            throw new SQLException("URL does not start with " + URL_PREFIX_XLS);
         }
+        String selectedType= URL_PREFIX_XLS;
         // get filepath from url
-        String filePath = url.substring(URL_PREFIX.length());
+        String filePath = url.substring(selectedType.length());
         if (!filePath.endsWith(File.separator))
         {
             filePath += File.separator;
@@ -138,7 +139,7 @@ public class XlsDriver implements Driver
     public boolean acceptsURL(String url) throws SQLException
     {
         DriverManager.println("XlsJdbc - XlsDriver:accept() - url=" + url);
-        return url.startsWith(URL_PREFIX);
+        return url.startsWith(URL_PREFIX_XLS);
     }
 
     /**

@@ -18,11 +18,17 @@ package org.aarboard.jdbc.xls;
 
 import java.io.InputStream;
 import java.io.FileInputStream;
-
-
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.hssf.record.*;
-import org.apache.poi.hssf.usermodel.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.poi.hssf.record.Record;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 /**
  * This class is a helper class that handles the reading and parsing of data
@@ -42,18 +48,17 @@ public class POIReader implements IXlsReader
 
     private InputStream stream = null;
     private Record[] records = null;
-    protected HSSFWorkbook workbook = null;
+    protected Workbook workbook = null;
 //    private Workbook workbook;
-    private HSSFSheet input;
+    private Sheet input;
     private int cRow;   // The current row we are on
     private String[] columnNames;
-    private HSSFRow columns;
-    private HSSFRow buf = null;
+    private Row columns;
+    private Row buf = null;
     private char separator = ',';
     private boolean suppressHeaders = false;
     private String stringDateFormat = null;
     private String fileName = null;
-    private POIFSFileSystem fs = null;
 
     /**
      * Constructor for the POIReader object
@@ -98,11 +103,11 @@ public class POIReader implements IXlsReader
     }
 
     @Override
-    public void openFile() throws java.lang.Exception
+    public void openFile() throws Exception
     {
-        fs = new POIFSFileSystem(new FileInputStream(fileName));
+        InputStream inp= new FileInputStream(fileName);
 
-        workbook = new HSSFWorkbook(fs);
+        workbook = WorkbookFactory.create(inp);
 
         // workbook = Workbook.getWorkbook(new File(fileName));
         int sCount = workbook.getNumberOfSheets();
@@ -113,7 +118,7 @@ public class POIReader implements IXlsReader
         if (this.isSuppressHeaders())
         {
             // No column names available. Read first data line and determine number of colums.
-            HSSFRow data = input.getRow(cRow++);
+            Row data = input.getRow(cRow++);
             columnNames = new String[data.getLastCellNum()];
             for (int i = 0; i < data.getLastCellNum(); i++)
             {
@@ -124,12 +129,11 @@ public class POIReader implements IXlsReader
         }
         else
         {
-            HSSFRow data = input.getRow(cRow++);
+            Row data = input.getRow(cRow++);
             columnNames = new String[data.getLastCellNum()];
             for (short i = 0; i < data.getLastCellNum(); i++)
             {
-
-                HSSFCell cell= data.getCell(i);
+                Cell cell= data.getCell(i);
                 if (cell == null)
                 {
                         columnNames[i] = "COLUMN" + String.valueOf(i + 1);
@@ -174,17 +178,17 @@ public class POIReader implements IXlsReader
     @Override
     public String getColumn(int columnIndex)
     {
-        HSSFCell thisCell = columns.getCell((short) columnIndex);
-        if (thisCell.getCellType() == HSSFCell.CELL_TYPE_STRING)
+        Cell thisCell = columns.getCell((short) columnIndex);
+        if (thisCell.getCellType() == Cell.CELL_TYPE_STRING)
         {
             return thisCell.getStringCellValue();
         }
-        else if (thisCell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
+        else if (thisCell.getCellType() == Cell.CELL_TYPE_NUMERIC)
         {
             double cValue = thisCell.getNumericCellValue();
-            HSSFCellStyle cStyle = thisCell.getCellStyle();
+            CellStyle cStyle = thisCell.getCellStyle();
             short cFormatIndex = cStyle.getDataFormat();
-            HSSFDataFormat thisFormat = workbook.createDataFormat();
+            DataFormat thisFormat = workbook.createDataFormat();
             // String cFormat= thisFormat.getFormat(cFormatIndex);
             String retVal = Double.toString(cValue);
             if (retVal.substring(retVal.length() - 2).equals(".0"))
@@ -207,10 +211,10 @@ public class POIReader implements IXlsReader
      * @since
      */
     @Override
-    public java.util.Date getColumnDate(int columnIndex) throws java.text.ParseException
+    public Date getColumnDate(int columnIndex) throws ParseException
     {
-        HSSFCell cellData = columns.getCell((short) columnIndex);
-        java.util.Date retVal = null;
+        Cell cellData = columns.getCell((short) columnIndex);
+        Date retVal = null;
         try
         {
             retVal = cellData.getDateCellValue();
@@ -221,14 +225,14 @@ public class POIReader implements IXlsReader
             String sData = cellData.getStringCellValue();
             if (sData != null && sData.trim().length() > 0)
             {
-                java.text.SimpleDateFormat sdFormat;
+                SimpleDateFormat sdFormat;
                 if (getStringDateFormat() == null)
                 {
-                    sdFormat = new java.text.SimpleDateFormat();
+                    sdFormat = new SimpleDateFormat();
                 }
                 else
                 {
-                    sdFormat = new java.text.SimpleDateFormat(getStringDateFormat());
+                    sdFormat = new SimpleDateFormat(getStringDateFormat());
                 }
                 retVal = sdFormat.parse(sData);
             }
@@ -334,7 +338,7 @@ public class POIReader implements IXlsReader
      * @since
      */
     @Override
-    public java.util.Date getColumnDate(String columnName) throws Exception
+    public Date getColumnDate(String columnName) throws Exception
     {
         columnName = columnName.toUpperCase();
         for (int loop = 0; loop < columnNames.length; loop++)
@@ -472,7 +476,7 @@ public class POIReader implements IXlsReader
     public boolean next() throws Exception
     {
         //columns = new String[columnNames.length];
-        HSSFRow dataLine;
+        Row dataLine;
         if (isSuppressHeaders() && (buf != null))
         {
             // The buffer is not empty yet, so use this first.
@@ -488,7 +492,13 @@ public class POIReader implements IXlsReader
             //
             // See and vote: http://issues.apache.org/bugzilla/show_bug.cgi?id=30635
             //
-            if (cRow > input.getLastRowNum())
+            int nRows= input.getLastRowNum();
+            if (nRows == 0)
+            {
+                // See the poi javadoc on this
+                nRows= input.getPhysicalNumberOfRows();
+            }
+            if (cRow > nRows)
             {
                 dataLine = null;
             }
