@@ -86,6 +86,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setAutoCommit(boolean autoCommit) throws SQLException
     {
     }
@@ -97,6 +98,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setReadOnly(boolean readOnly) throws SQLException
     {
     }
@@ -108,6 +110,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setCatalog(String catalog) throws SQLException
     {
     }
@@ -119,6 +122,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setTransactionIsolation(int level) throws SQLException
     {
     }
@@ -130,6 +134,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setTypeMap(Map map) throws SQLException
     {
     }
@@ -141,6 +146,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean getAutoCommit() throws SQLException
     {
         // always false
@@ -154,6 +160,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean isClosed() throws SQLException
     {
         return false;
@@ -166,6 +173,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public DatabaseMetaData getMetaData() throws SQLException
     {
         throw new SQLException("NYI");
@@ -178,6 +186,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean isReadOnly() throws SQLException
     {
         // always reexpecting ;adonly
@@ -191,6 +200,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public String getCatalog() throws SQLException
     {
         return null;
@@ -203,6 +213,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getTransactionIsolation() throws SQLException
     {
         return Connection.TRANSACTION_NONE;
@@ -215,6 +226,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public SQLWarning getWarnings() throws SQLException
     {
         return null;
@@ -227,6 +239,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Map getTypeMap() throws SQLException
     {
         return new Hashtable();
@@ -239,6 +252,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Statement createStatement() throws SQLException
     {
         return new XlsStatement(this);
@@ -252,6 +266,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public PreparedStatement prepareStatement(String sql) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -265,6 +280,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public CallableStatement prepareCall(String sql) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -278,6 +294,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public String nativeSQL(String sql) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -289,6 +306,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void commit() throws SQLException
     {
     }
@@ -299,6 +317,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void rollback() throws SQLException
     {
     }
@@ -309,6 +328,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void close() throws SQLException
     {
     }
@@ -319,6 +339,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void clearWarnings() throws SQLException
     {
     }
@@ -332,6 +353,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException      Description of Exception
      * @since
      */
+    @Override
     public Statement createStatement(int resultSetType, int resultSetConcurrency)
             throws SQLException
     {
@@ -348,6 +370,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException      Description of Exception
      * @since
      */
+    @Override
     public PreparedStatement prepareStatement(
             String sql,
             int resultSetType,
@@ -367,6 +390,7 @@ public class XlsConnection implements Connection
      * @exception  SQLException      Description of Exception
      * @since
      */
+    @Override
     public CallableStatement prepareCall(
             String sql,
             int resultSetType,
@@ -439,56 +463,67 @@ public class XlsConnection implements Connection
         return suppressHeaders;
     }
 
+    @Override
     public int getHoldability() throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public java.sql.CallableStatement prepareCall(String str, int param, int param2, int param3) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public java.sql.PreparedStatement prepareStatement(String str, int param) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public java.sql.PreparedStatement prepareStatement(String str, int[] values) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public java.sql.PreparedStatement prepareStatement(String str, String[] str1) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public java.sql.PreparedStatement prepareStatement(String str, int param, int param2, int param3) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void releaseSavepoint(java.sql.Savepoint savepoint) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void rollback(java.sql.Savepoint savepoint) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void setHoldability(int param) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public java.sql.Savepoint setSavepoint() throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public java.sql.Savepoint setSavepoint(String str) throws java.sql.SQLException
     {
         throw new SQLException("Not Supported !");

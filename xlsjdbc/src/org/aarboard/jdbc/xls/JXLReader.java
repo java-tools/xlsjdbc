@@ -92,6 +92,7 @@ public class JXLReader implements IXlsReader
         openFile();
     }
 
+    @Override
     public void openFile() throws java.lang.Exception
     {
         workbook = jxl.Workbook.getWorkbook(new java.io.File(getFileName()));
@@ -133,6 +134,7 @@ public class JXLReader implements IXlsReader
      * @return The columnNames value
      * @since 
      */
+    @Override
     public String[] getColumnNames()
     {
         return columnNames;
@@ -145,6 +147,7 @@ public class JXLReader implements IXlsReader
      * @return              The column value
      * @since
      */
+    @Override
     public String getColumn(int columnIndex)
     {
         jxl.Cell cellData = input.getCell(columnIndex, cRow);
@@ -162,6 +165,7 @@ public class JXLReader implements IXlsReader
      * @return              The column value
      * @since
      */
+    @Override
     public java.util.Date getColumnDate(int columnIndex) throws java.text.ParseException
     {
         jxl.Cell cellData = input.getCell(columnIndex, cRow);
@@ -203,6 +207,7 @@ public class JXLReader implements IXlsReader
      * @return              The column value
      * @since
      */
+    @Override
     public boolean getColumnBoolean(int columnIndex)
     {
         jxl.Cell cellData = input.getCell(columnIndex, cRow);
@@ -224,6 +229,7 @@ public class JXLReader implements IXlsReader
      * @return              The column value
      * @since
      */
+    @Override
     public double getColumnDouble(int columnIndex)
     {
         jxl.Cell cellData = input.getCell(columnIndex, cRow);
@@ -245,6 +251,7 @@ public class JXLReader implements IXlsReader
      * @return              The column value
      * @since
      */
+    @Override
     public int getColumnInt(int columnIndex)
     {
         jxl.Cell cellData = input.getCell(columnIndex, cRow);
@@ -266,6 +273,7 @@ public class JXLReader implements IXlsReader
      * @return              The column value
      * @since
      */
+    @Override
     public long getColumnLong(int columnIndex)
     {
         jxl.Cell cellData = input.getCell(columnIndex, cRow);
@@ -287,6 +295,7 @@ public class JXLReader implements IXlsReader
      * @return              The column value
      * @since
      */
+    @Override
     public short getColumnShort(int columnIndex)
     {
         jxl.Cell cellData = input.getCell(columnIndex, cRow);
@@ -310,6 +319,7 @@ public class JXLReader implements IXlsReader
      * @exception  Exception  Description of Exception
      * @since
      */
+    @Override
     public String getColumn(String columnName) throws Exception
     {
         columnName = columnName.toUpperCase();
@@ -332,6 +342,7 @@ public class JXLReader implements IXlsReader
      * @exception  Exception  Description of Exception
      * @since
      */
+    @Override
     public java.util.Date getColumnDate(String columnName) throws Exception
     {
         columnName = columnName.toUpperCase();
@@ -376,6 +387,7 @@ public class JXLReader implements IXlsReader
      * @exception  Exception  Description of Exception
      * @since
      */
+    @Override
     public double getColumnDouble(String columnName) throws Exception
     {
         columnName = columnName.toUpperCase();
@@ -398,6 +410,7 @@ public class JXLReader implements IXlsReader
      * @exception  Exception  Description of Exception
      * @since
      */
+    @Override
     public int getColumnInt(String columnName) throws Exception
     {
         columnName = columnName.toUpperCase();
@@ -420,6 +433,7 @@ public class JXLReader implements IXlsReader
      * @exception  Exception  Description of Exception
      * @since
      */
+    @Override
     public short getColumnShort(String columnName) throws Exception
     {
         columnName = columnName.toUpperCase();
@@ -442,6 +456,7 @@ public class JXLReader implements IXlsReader
      * @exception  Exception  Description of Exception
      * @since
      */
+    @Override
     public long getColumnLong(String columnName) throws Exception
     {
         columnName = columnName.toUpperCase();
@@ -462,6 +477,7 @@ public class JXLReader implements IXlsReader
      * @exception  Exception  Description of Exception
      * @since
      */
+    @Override
     public boolean next() throws Exception
     {
         boolean retVal = false;
@@ -484,46 +500,55 @@ public class JXLReader implements IXlsReader
      *
      * @since
      */
+    @Override
     public void close()
     {
         workbook.close();
     }
 
+    @Override
     public char getSeparator()
     {
         return separator;
     }
 
+    @Override
     public void setSeparator(char separator)
     {
         this.separator = separator;
     }
 
+    @Override
     public boolean isSuppressHeaders()
     {
         return suppressHeaders;
     }
 
+    @Override
     public void setSuppressHeaders(boolean suppressHeaders)
     {
         this.suppressHeaders = suppressHeaders;
     }
 
+    @Override
     public String getStringDateFormat()
     {
         return stringDateFormat;
     }
 
+    @Override
     public void setStringDateFormat(String stringDateFormat)
     {
         this.stringDateFormat = stringDateFormat;
     }
 
+    @Override
     public String getFileName()
     {
         return fileName;
     }
 
+    @Override
     public void setFileName(String fileName)
     {
         this.fileName = fileName;

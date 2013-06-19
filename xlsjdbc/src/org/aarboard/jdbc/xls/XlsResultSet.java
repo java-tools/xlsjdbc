@@ -67,6 +67,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setFetchDirection(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -79,6 +80,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void setFetchSize(int p0) throws SQLException
     {
         // 
@@ -95,6 +97,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public String getString(int columnIndex) throws SQLException
     {
         try
@@ -119,6 +122,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public String getString(String columnName) throws SQLException
     {
         columnName = columnName.toUpperCase();
