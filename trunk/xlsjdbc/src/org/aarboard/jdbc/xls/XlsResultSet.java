@@ -19,6 +19,7 @@ import java.sql.*;
 import java.math.BigDecimal;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.URL;
 import java.util.Map;
 import java.util.Calendar;
 
@@ -58,6 +59,27 @@ public class XlsResultSet implements ResultSet
         {
             this.columnNames = reader.getColumnNames();
         }
+    }
+    
+    /**
+     * Search for the column with the given name
+     * Returns 1-based numbers als used by the JDBC standards
+     * 
+     * @param columnName
+     * @return column number or -1 if not found
+     */
+    protected int getColumnIndex(String columnName)
+    {
+        columnName = columnName.toUpperCase();
+
+        for (int loop = 0; loop < columnNames.length; loop++)
+        {
+            if (columnName.equals(columnNames[loop]))
+            {
+                return loop+1;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -102,9 +124,9 @@ public class XlsResultSet implements ResultSet
     {
         try
         {
-            return reader.getColumn(columnNames[columnIndex]);
+            return reader.getColumn(columnIndex);
         }
-        catch (java.lang.NullPointerException ne)
+        catch (NullPointerException ne)
         {
             return null;
         }
@@ -125,17 +147,15 @@ public class XlsResultSet implements ResultSet
     @Override
     public String getString(String columnName) throws SQLException
     {
-        columnName = columnName.toUpperCase();
-
-        for (int loop = 0; loop < columnNames.length; loop++)
+        int index= getColumnIndex(columnName);
+        if (index != -1)
         {
-            if (columnName.equals(columnNames[loop]))
-            {
-                return getString(loop);
-            }
+            return getString(index);
         }
-
-        throw new SQLException("Column '" + columnName + "' not found.");
+        else
+        {
+            throw new SQLException("Column '" + columnName + "' not found.");
+        }
     }
 
     /**
@@ -145,6 +165,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Statement getStatement() throws SQLException
     {
         return statement;
@@ -158,6 +179,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean getBoolean(int columnIndex) throws SQLException
     {
         try
@@ -178,6 +200,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public byte getByte(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -191,6 +214,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public short getShort(int p0) throws SQLException
     {
         return reader.getColumnShort(p0);
@@ -204,6 +228,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getInt(int p0) throws SQLException
     {
         return reader.getColumnInt(p0);
@@ -217,6 +242,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public long getLong(int p0) throws SQLException
     {
         return reader.getColumnLong(p0);
@@ -230,6 +256,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public float getFloat(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -243,11 +270,12 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public double getDouble(int columnIndex) throws SQLException
     {
         try
         {
-            return reader.getColumnDouble(columnNames[columnIndex]);
+            return reader.getColumnDouble(columnIndex);
         }
         catch (Exception e)
         {
@@ -264,6 +292,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public BigDecimal getBigDecimal(int p0, int p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -277,6 +306,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public byte[] getBytes(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -290,11 +320,12 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Date getDate(int columnIndex) throws SQLException
     {
         try
         {
-            java.util.Date retVal = reader.getColumnDate(columnNames[columnIndex]);
+            java.util.Date retVal = reader.getColumnDate(columnIndex);
             if (retVal != null)
             {
                 return new java.sql.Date(retVal.getTime());
@@ -322,6 +353,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Time getTime(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -335,6 +367,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Timestamp getTimestamp(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -348,6 +381,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public InputStream getAsciiStream(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -361,6 +395,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @SuppressWarnings("deprecation")
     public InputStream getUnicodeStream(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -374,6 +409,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public InputStream getBinaryStream(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -387,19 +423,18 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean getBoolean(String columnName) throws SQLException
     {
-        columnName = columnName.toUpperCase();
-
-        for (int loop = 0; loop < columnNames.length; loop++)
+        int index= getColumnIndex(columnName);
+        if (index != -1)
         {
-            if (columnName.equals(columnNames[loop]))
-            {
-                return getBoolean(loop);
-            }
+            return getBoolean(index);
         }
-
-        throw new SQLException("Column '" + columnName + "' not found.");
+        else
+        {
+            throw new SQLException("Column '" + columnName + "' not found.");
+        }
     }
 
     /**
@@ -410,6 +445,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public byte getByte(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -423,19 +459,18 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public short getShort(String columnName) throws SQLException
     {
-        columnName = columnName.toUpperCase();
-
-        for (int loop = 0; loop < columnNames.length; loop++)
+        int index= getColumnIndex(columnName);
+        if (index != -1)
         {
-            if (columnName.equals(columnNames[loop]))
-            {
-                return getShort(loop);
-            }
+            return getShort(index);
         }
-
-        throw new SQLException("Column '" + columnName + "' not found.");
+        else
+        {
+            throw new SQLException("Column '" + columnName + "' not found.");
+        }
     }
 
     /**
@@ -446,19 +481,18 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getInt(String columnName) throws SQLException
     {
-        columnName = columnName.toUpperCase();
-
-        for (int loop = 0; loop < columnNames.length; loop++)
+        int index= getColumnIndex(columnName);
+        if (index != -1)
         {
-            if (columnName.equals(columnNames[loop]))
-            {
-                return getInt(loop);
-            }
+            return getInt(index);
         }
-
-        throw new SQLException("Column '" + columnName + "' not found.");
+        else
+        {
+            throw new SQLException("Column '" + columnName + "' not found.");
+        }
     }
 
     /**
@@ -469,19 +503,18 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public long getLong(String columnName) throws SQLException
     {
-        columnName = columnName.toUpperCase();
-
-        for (int loop = 0; loop < columnNames.length; loop++)
+        int index= getColumnIndex(columnName);
+        if (index != -1)
         {
-            if (columnName.equals(columnNames[loop]))
-            {
-                return getLong(loop);
-            }
+            return getLong(index);
         }
-
-        throw new SQLException("Column '" + columnName + "' not found.");
+        else
+        {
+            throw new SQLException("Column '" + columnName + "' not found.");
+        }
     }
 
     /**
@@ -492,19 +525,18 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public float getFloat(String columnName) throws SQLException
     {
-        columnName = columnName.toUpperCase();
-
-        for (int loop = 0; loop < columnNames.length; loop++)
+        int index= getColumnIndex(columnName);
+        if (index != -1)
         {
-            if (columnName.equals(columnNames[loop]))
-            {
-                return getFloat(loop);
-            }
+            return getFloat(index);
         }
-
-        throw new SQLException("Column '" + columnName + "' not found.");
+        else
+        {
+            throw new SQLException("Column '" + columnName + "' not found.");
+        }
     }
 
     /**
@@ -515,19 +547,18 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public double getDouble(String columnName) throws SQLException
     {
-        columnName = columnName.toUpperCase();
-
-        for (int loop = 0; loop < columnNames.length; loop++)
+        int index= getColumnIndex(columnName);
+        if (index != -1)
         {
-            if (columnName.equals(columnNames[loop]))
-            {
-                return getDouble(loop);
-            }
+            return getDouble(index);
         }
-
-        throw new SQLException("Column '" + columnName + "' not found.");
+        else
+        {
+            throw new SQLException("Column '" + columnName + "' not found.");
+        }
     }
 
     /**
@@ -539,6 +570,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public BigDecimal getBigDecimal(String p0, int p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -552,6 +584,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public byte[] getBytes(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -565,19 +598,18 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Date getDate(String columnName) throws SQLException
     {
-        columnName = columnName.toUpperCase();
-
-        for (int loop = 0; loop < columnNames.length; loop++)
+        int index= getColumnIndex(columnName);
+        if (index != -1)
         {
-            if (columnName.equals(columnNames[loop]))
-            {
-                return getDate(loop);
-            }
+            return getDate(index);
         }
-
-        throw new SQLException("Column '" + columnName + "' not found.");
+        else
+        {
+            throw new SQLException("Column '" + columnName + "' not found.");
+        }
     }
 
     /**
@@ -588,6 +620,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Time getTime(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -601,6 +634,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Timestamp getTimestamp(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -614,6 +648,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public InputStream getAsciiStream(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -627,6 +662,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public InputStream getUnicodeStream(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -640,6 +676,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public InputStream getBinaryStream(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -652,6 +689,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public SQLWarning getWarnings() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -664,6 +702,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public String getCursorName() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -676,6 +715,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public ResultSetMetaData getMetaData() throws SQLException
     {
         if (resultSetMetaData == null)
@@ -694,6 +734,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Object getObject(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -707,6 +748,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Object getObject(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -720,6 +762,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Reader getCharacterStream(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -733,6 +776,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Reader getCharacterStream(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -746,6 +790,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public BigDecimal getBigDecimal(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -759,6 +804,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public BigDecimal getBigDecimal(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -771,6 +817,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean isBeforeFirst() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -783,6 +830,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean isAfterLast() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -795,6 +843,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean isFirst() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -807,6 +856,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean isLast() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -819,6 +869,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getRow() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -831,6 +882,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getFetchDirection() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -843,6 +895,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getFetchSize() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -855,6 +908,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getType() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -867,6 +921,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int getConcurrency() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -881,6 +936,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Object getObject(int p0, Map p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -894,6 +950,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Ref getRef(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -907,6 +964,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Blob getBlob(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -920,6 +978,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Clob getClob(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -933,6 +992,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Array getArray(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -947,6 +1007,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Object getObject(String p0, Map p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -960,6 +1021,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Ref getRef(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -973,6 +1035,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Blob getBlob(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -986,6 +1049,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Clob getClob(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -999,6 +1063,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Array getArray(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1013,6 +1078,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Date getDate(int p0, Calendar p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1027,6 +1093,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Date getDate(String p0, Calendar p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1041,6 +1108,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Time getTime(int p0, Calendar p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1055,6 +1123,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Time getTime(String p0, Calendar p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1069,6 +1138,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Timestamp getTimestamp(int p0, Calendar p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1083,6 +1153,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Timestamp getTimestamp(String p0, Calendar p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1095,6 +1166,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean next() throws SQLException
     {
         try
@@ -1113,6 +1185,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void close() throws SQLException
     {
         reader.close();
@@ -1125,6 +1198,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean wasNull() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1136,6 +1210,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void clearWarnings() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1149,6 +1224,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public int findColumn(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1160,6 +1236,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void beforeFirst() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1171,6 +1248,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void afterLast() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1183,6 +1261,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean first() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1195,6 +1274,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean last() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1208,6 +1288,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean absolute(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1221,6 +1302,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean relative(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1233,6 +1315,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean previous() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1245,6 +1328,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean rowUpdated() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1257,6 +1341,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean rowInserted() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1269,6 +1354,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean rowDeleted() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1281,6 +1367,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateNull(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1294,6 +1381,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateBoolean(int p0, boolean p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1307,6 +1395,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateByte(int p0, byte p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1320,6 +1409,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateShort(int p0, short p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1333,6 +1423,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateInt(int p0, int p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1346,6 +1437,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateLong(int p0, long p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1359,6 +1451,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateFloat(int p0, float p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1372,6 +1465,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateDouble(int p0, double p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1385,6 +1479,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateBigDecimal(int p0, BigDecimal p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1398,6 +1493,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateString(int p0, String p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1411,6 +1507,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateBytes(int p0, byte[] p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1424,6 +1521,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateDate(int p0, Date p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1437,6 +1535,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateTime(int p0, Time p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1450,6 +1549,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateTimestamp(int p0, Timestamp p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1464,6 +1564,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateAsciiStream(int p0, InputStream p1, int p2) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1478,6 +1579,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateBinaryStream(int p0, InputStream p1, int p2) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1492,6 +1594,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateCharacterStream(int p0, Reader p1, int p2) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1506,6 +1609,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateObject(int p0, Object p1, int p2) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1519,6 +1623,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateObject(int p0, Object p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1531,6 +1636,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateNull(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1544,6 +1650,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateBoolean(String p0, boolean p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1557,6 +1664,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateByte(String p0, byte p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1570,6 +1678,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateShort(String p0, short p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1583,6 +1692,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateInt(String p0, int p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1596,6 +1706,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateLong(String p0, long p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1609,6 +1720,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateFloat(String p0, float p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1622,6 +1734,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateDouble(String p0, double p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1635,6 +1748,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateBigDecimal(String p0, BigDecimal p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1648,6 +1762,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateString(String p0, String p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1661,6 +1776,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateBytes(String p0, byte[] p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1674,6 +1790,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateDate(String p0, Date p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1687,6 +1804,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateTime(String p0, Time p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1700,6 +1818,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateTimestamp(String p0, Timestamp p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1714,6 +1833,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateAsciiStream(String p0, InputStream p1, int p2) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1728,6 +1848,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateBinaryStream(String p0, InputStream p1, int p2) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1742,6 +1863,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateCharacterStream(String p0, Reader p1, int p2) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1756,6 +1878,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateObject(String p0, Object p1, int p2) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1769,6 +1892,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateObject(String p0, Object p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1780,6 +1904,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void insertRow() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1791,6 +1916,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void updateRow() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1802,6 +1928,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void deleteRow() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1813,6 +1940,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void refreshRow() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1824,6 +1952,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void cancelRowUpdates() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1835,6 +1964,7 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void moveToInsertRow() throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -1846,21 +1976,25 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public void moveToCurrentRow() throws SQLException
     {
         throw new SQLException("Not Supported !");
     }
 
-    public java.net.URL getURL(int columnNumber)
+    @Override
+    public URL getURL(int columnNumber)
     {
         return null;
     }
 
-    public java.net.URL getURL(String columnNumber)
+    @Override
+    public URL getURL(String columnNumber)
     {
         return null;
     }
 
+    @Override
     public void updateRef(int columnIndex,
             java.sql.Ref x)
             throws SQLException
@@ -1868,6 +2002,7 @@ public class XlsResultSet implements ResultSet
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void updateRef(String columnName,
             Ref x)
             throws SQLException
@@ -1875,6 +2010,7 @@ public class XlsResultSet implements ResultSet
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void updateBlob(int columnIndex,
             Blob x)
             throws SQLException
@@ -1882,6 +2018,7 @@ public class XlsResultSet implements ResultSet
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void updateBlob(String columnName,
             Blob x)
             throws SQLException
@@ -1889,6 +2026,7 @@ public class XlsResultSet implements ResultSet
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void updateClob(int columnIndex,
             Clob x)
             throws SQLException
@@ -1896,6 +2034,7 @@ public class XlsResultSet implements ResultSet
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void updateClob(String columnName,
             Clob x)
             throws SQLException
@@ -1903,6 +2042,7 @@ public class XlsResultSet implements ResultSet
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void updateArray(int columnIndex,
             Array x)
             throws SQLException
@@ -1910,6 +2050,7 @@ public class XlsResultSet implements ResultSet
         throw new SQLException("Not Supported !");
     }
 
+    @Override
     public void updateArray(String columnName,
             Array x)
             throws SQLException

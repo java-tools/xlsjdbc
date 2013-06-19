@@ -178,7 +178,7 @@ public class POIReader implements IXlsReader
     @Override
     public String getColumn(int columnIndex)
     {
-        Cell thisCell = columns.getCell((short) columnIndex);
+        Cell thisCell = columns.getCell( columnIndex-1);
         if (thisCell.getCellType() == Cell.CELL_TYPE_STRING)
         {
             return thisCell.getStringCellValue();
@@ -213,7 +213,7 @@ public class POIReader implements IXlsReader
     @Override
     public Date getColumnDate(int columnIndex) throws ParseException
     {
-        Cell cellData = columns.getCell((short) columnIndex);
+        Cell cellData = columns.getCell(columnIndex-1);
         Date retVal = null;
         try
         {
@@ -250,7 +250,7 @@ public class POIReader implements IXlsReader
     @Override
     public boolean getColumnBoolean(int columnIndex)
     {
-        return columns.getCell((short) columnIndex).getBooleanCellValue();
+        return columns.getCell(columnIndex-1).getBooleanCellValue();
     }
 
     /**
@@ -263,7 +263,7 @@ public class POIReader implements IXlsReader
     @Override
     public double getColumnDouble(int columnIndex)
     {
-        return columns.getCell((short) columnIndex).getNumericCellValue();
+        return columns.getCell(columnIndex-1).getNumericCellValue();
     }
 
     /**
@@ -276,7 +276,7 @@ public class POIReader implements IXlsReader
     @Override
     public int getColumnInt(int columnIndex)
     {
-        return (int) columns.getCell((short) columnIndex).getNumericCellValue();
+        return (int) columns.getCell(columnIndex-1).getNumericCellValue();
     }
 
     /**
@@ -289,7 +289,7 @@ public class POIReader implements IXlsReader
     @Override
     public long getColumnLong(int columnIndex)
     {
-        return (long) columns.getCell((short) columnIndex).getNumericCellValue();
+        return (long) columns.getCell(columnIndex-1).getNumericCellValue();
     }
 
     /**
@@ -302,7 +302,7 @@ public class POIReader implements IXlsReader
     @Override
     public short getColumnShort(int columnIndex)
     {
-        return (short) columns.getCell((short) columnIndex).getNumericCellValue();
+        return (short) columns.getCell(columnIndex-1).getNumericCellValue();
     }
 
     /**

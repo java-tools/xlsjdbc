@@ -34,7 +34,7 @@ hr {
     <td>&nbsp;</td>
     <td><h1>XLS JDBC</h1>
       <hr noshade size="1">      <p>XLSJDBC is a <strong>readonly</strong> jdbc
-        driver to access xls files from java, just as it where another ordinary
+        driver to access xls and xlsx files from java, just as it where another ordinary
         SQL database.</p>
       <h2>Requirements</h2>
       <hr noshade size="1">      <p>To be able to use this library you must obtain
@@ -49,7 +49,7 @@ hr {
         the place to look for.</p>
       <p>Second you need a library who can read the XLS files. For this we use
         the
-  jakarta poi package. We only have tested it with release 2.5 of POI.
+  jakarta poi package. We only have tested it with release 3.9 of POI.
   Available at <a href="http://jakarta.apache.org/poi/">http://jakarta.apache.org/poi/</a></p>
       <p>The xlsjdbc driver is found here: <a href="http://sourceforge.net/project/showfiles.php?group_id=50004" target="_blank">http://sourceforge.net/project/showfiles.php?group_id=50004</a></p>
       <p>Once you got those packages you can use the driver.</p>      <h2>Usage</h2>
@@ -92,7 +92,8 @@ public class DemoDriver
       System.out.println("Oops-> " + e);
     }
   }
-}</pre>
+}
+</pre>
 </code>
 <p>Actually the &quot;only&quot; thing you can do is a select * from xlsfile
   statement.</p>
@@ -100,9 +101,12 @@ public class DemoDriver
   where clausle. You see, there is plenty room for improvements.</p>
 <h2>Advanced options</h2>
 <hr noshade size="1">
-      <p>Retrieving date fields can cause problems, when the date is entered
-        as string<br>
-  in excel and not as date. To solve this problem you have to specify the
+      <h3>The default is to open xls file, if you wish to work with xlsx file, you have to specify the extension.</h3>
+        <pre>info.setProperty(org.aarboard.jdbc.xls.XlsDriver.FILE_EXTENSION, &quot;.xlsx&quot;);</pre>
+      
+      <h3>Retrieving date fields can cause problems, when the date is entered
+        as string in excel and not as date.</h3>
+        <p>To solve this problem you have to specify the
   dateformat (as used by java.text.SimpleDateFormat)</p>
       <p>For Switzerland we use this:</p>
       <p><code>info.setProperty(org.aarboard.jdbc.xls.XlsDriver.STRING_DATE_FORMAT, &quot;d.M.yyyy&quot;);<br>
