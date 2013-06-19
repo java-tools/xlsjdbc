@@ -24,16 +24,17 @@ public class TestNull extends TestCase {
 
     public void testNull()
     {
-	testNull("org.aarboard.jdbc.xls.POIReader");
-	testNull("org.aarboard.jdbc.xls.JXLReader");
+	testNull("org.aarboard.jdbc.xls.POIReader", ".xls");
+	testNull("org.aarboard.jdbc.xls.POIReader", ".xlsx");
+	// testNull("org.aarboard.jdbc.xls.JXLReader");
     }
     
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
-    public void testNull(String readerClass)
+    public void testNull(String readerClass, String type)
     {
         String jdbcClassName= "org.aarboard.jdbc.xls.XlsDriver";
-        String jdbcURL= "jdbc:aarboard:xls:C:/Develop/Sourceforge/xlsjdbc/test/testdata/";
+        String jdbcURL= "jdbc:aarboard:xls:C:/Develop/Sourceforge/xlsjdbc/xlsjdbc/test/testdata/";
         String jdbcUsername= "";
         String jdbcPassword= "";
         String jdbcTableName= "nulltest1";
@@ -44,6 +45,7 @@ public class TestNull extends TestCase {
             Class.forName(jdbcClassName);
 	    java.util.Properties info= new java.util.Properties();
 	    info.setProperty(org.aarboard.jdbc.xls.XlsDriver.XLS_READER_CLASS, readerClass);
+	    info.setProperty(org.aarboard.jdbc.xls.XlsDriver.FILE_EXTENSION, type);
             java.sql.Connection conn= java.sql.DriverManager.getConnection(jdbcURL, info);  
 
             // create a Statement object to execute the query with

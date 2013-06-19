@@ -19,21 +19,24 @@ public class TestNRows extends TestCase {
 
     public void testNRows()
     {
-        doTestNRows(10, "org.aarboard.jdbc.xls.POIReader");
-        doTestNRows(10, "org.aarboard.jdbc.xls.JXLReader");
-        doTestNRows(51, "org.aarboard.jdbc.xls.POIReader");
-        doTestNRows(51, "org.aarboard.jdbc.xls.JXLReader");
-        doTestNRows(1017, "org.aarboard.jdbc.xls.JXLReader");
-        doTestNRows(1017, "org.aarboard.jdbc.xls.POIReader");
+        doTestNRows(10, "org.aarboard.jdbc.xls.POIReader", ".xls");
+        doTestNRows(10, "org.aarboard.jdbc.xls.POIReader", ".xlsx");
+        // doTestNRows(10, "org.aarboard.jdbc.xls.JXLReader");
+        doTestNRows(51, "org.aarboard.jdbc.xls.POIReader", ".xls");
+        doTestNRows(51, "org.aarboard.jdbc.xls.POIReader", ".xlsx");
+        // doTestNRows(51, "org.aarboard.jdbc.xls.JXLReader");
+        doTestNRows(1017, "org.aarboard.jdbc.xls.POIReader", ".xlsx");
+        doTestNRows(1017, "org.aarboard.jdbc.xls.POIReader", ".xls");
+        // doTestNRows(1017, "org.aarboard.jdbc.xls.JXLReader");
     }
     
     
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
-    public void doTestNRows(int nCount, String readerClass)
+    public void doTestNRows(int nCount, String readerClass, String type)
     {
         String jdbcClassName= "org.aarboard.jdbc.xls.XlsDriver";
-        String jdbcURL= "jdbc:aarboard:xls:C:/Develop/Sourceforge/xlsjdbc/test/testdata/";
+        String jdbcURL= "jdbc:aarboard:xls:C:/Develop/Sourceforge/xlsjdbc/xlsjdbc/test/testdata/";
         String jdbcUsername= "";
         String jdbcPassword= "";
         String jdbcTableName= ""+nCount+"rows";
@@ -42,6 +45,7 @@ public class TestNRows extends TestCase {
         {
 	    java.util.Properties info= new java.util.Properties();
 	    info.setProperty(org.aarboard.jdbc.xls.XlsDriver.XLS_READER_CLASS, readerClass);
+	    info.setProperty(org.aarboard.jdbc.xls.XlsDriver.FILE_EXTENSION, type);
 	    
             Class.forName(jdbcClassName);
             java.sql.Connection conn= java.sql.DriverManager.getConnection(jdbcURL, info);  
