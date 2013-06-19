@@ -54,6 +54,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The name of the class for the requested column
      * @exception  SQLException  Thrown if there was a problem
      */
+    @Override
     public String getColumnClassName(int column) throws SQLException
     {
         return String.class.getName();
@@ -64,6 +65,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The number of columns in the table
      * @exception  SQLException  Thrown if there is a a problem
      */
+    @Override
     public int getColumnCount() throws SQLException
     {
         return columnNames.length;
@@ -75,6 +77,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The catalog name (always "")
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public String getCatalogName(int column) throws SQLException
     {
         return "";
@@ -86,6 +89,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The size of the requested column
      * @exception  SQLException  Thrown if there is a problem.
      */
+    @Override
     public int getColumnDisplaySize(int column) throws SQLException
     {
         return DISPLAY_SIZE;
@@ -97,6 +101,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The autoIncrement flag (always false)
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public boolean isAutoIncrement(int column) throws SQLException
     {
         return false;
@@ -108,6 +113,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The caseSensitive flag (always false)
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public boolean isCaseSensitive(int column) throws SQLException
     {
         //all columns are uppercase
@@ -120,6 +126,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The searchable flag (always false)
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public boolean isSearchable(int column) throws SQLException
     {
         // the implementation doesn't support the where clause
@@ -132,6 +139,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The currency flag (always false)
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public boolean isCurrency(int column) throws SQLException
     {
         return false;
@@ -143,6 +151,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The nullable flag (always unknown)
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public int isNullable(int column) throws SQLException
     {
         return ResultSetMetaData.columnNullableUnknown;
@@ -154,6 +163,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The signed flag (always false)
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public boolean isSigned(int column) throws SQLException
     {
         return false;
@@ -165,6 +175,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   the label for the specified column
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public String getColumnLabel(int column) throws SQLException
     {
         // SQL column numbers start at 1
@@ -177,6 +188,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
      * @return                   The name of the column
      * @exception  SQLException  Thrown if there is a problem
      */
+    @Override
     public String getColumnName(int column) throws SQLException
     {
         // SQL column numbers start at 1
@@ -185,6 +197,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public String getSchemaName(int column) throws SQLException
     {
         return "";
@@ -192,6 +205,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public int getPrecision(int column) throws SQLException
     {
         // All the fields are text, should this throw an SQLException?
@@ -200,6 +214,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public int getScale(int column) throws SQLException
     {
         // All the fields are text, should this throw an SQLException?
@@ -208,6 +223,7 @@ public class XlsResultSetMetaData implements ResultSetMetaData
 
     /**Comments to be done
      */
+    @Override
     public String getTableName(int column) throws SQLException
     {
         return tableName;

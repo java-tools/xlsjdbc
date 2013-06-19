@@ -49,6 +49,7 @@ public class XlsDriver implements Driver
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
             throws SQLException
     {
@@ -61,6 +62,7 @@ public class XlsDriver implements Driver
      * @return    The majorVersion value
      * @since
      */
+    @Override
     public int getMajorVersion()
     {
         return 1;
@@ -72,6 +74,7 @@ public class XlsDriver implements Driver
      * @return    The minorVersion value
      * @since
      */
+    @Override
     public int getMinorVersion()
     {
         return 6;
@@ -86,6 +89,7 @@ public class XlsDriver implements Driver
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public Connection connect(String url, Properties info) throws SQLException
     {
         DriverManager.println("XlsJdbc - XlsDriver:connect() - url=" + url);
@@ -130,6 +134,7 @@ public class XlsDriver implements Driver
      * @exception  SQLException  Description of Exception
      * @since
      */
+    @Override
     public boolean acceptsURL(String url) throws SQLException
     {
         DriverManager.println("XlsJdbc - XlsDriver:accept() - url=" + url);
@@ -142,6 +147,7 @@ public class XlsDriver implements Driver
      * @return    Description of the Returned Value
      * @since
      */
+    @Override
     public boolean jdbcCompliant()
     {
         return false;
