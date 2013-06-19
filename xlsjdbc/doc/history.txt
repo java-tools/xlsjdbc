@@ -1,3 +1,5 @@
+- Release 1.7.0 -
+2013.06.19 : Added support for XLSX files
 - Release 1.6.0 -
 2009.09.21 : Added fix to catch NPE errors when we did read non-existing header 
              fields.
