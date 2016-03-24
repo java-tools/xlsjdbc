@@ -45,6 +45,7 @@ public class XlsResultSet implements ResultSet
      *
      * @param  statement    Description of Parameter
      * @param  reader       Description of Parameter
+     * @param tableName
      * @param  columnNames  Description of Parameter
      * @since
      */
@@ -265,7 +266,7 @@ public class XlsResultSet implements ResultSet
     /**
      *Gets the double attribute of the XlsResultSet object
      *
-     * @param  p0                Description of Parameter
+     * @param  columnIndex       Column to read
      * @return                   The double value
      * @exception  SQLException  Description of Exception
      * @since
@@ -293,6 +294,7 @@ public class XlsResultSet implements ResultSet
      * @since
      */
     @Override
+    @Deprecated
     public BigDecimal getBigDecimal(int p0, int p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -395,7 +397,8 @@ public class XlsResultSet implements ResultSet
      * @exception  SQLException  Description of Exception
      * @since
      */
-    @SuppressWarnings("deprecation")
+    @Override
+    @Deprecated
     public InputStream getUnicodeStream(int p0) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -418,7 +421,7 @@ public class XlsResultSet implements ResultSet
     /**
      *Gets the boolean attribute of the XlsResultSet object
      *
-     * @param  p0                Description of Parameter
+     * @param  columnName        Column to read
      * @return                   The boolean value
      * @exception  SQLException  Description of Exception
      * @since
@@ -454,7 +457,7 @@ public class XlsResultSet implements ResultSet
     /**
      *Gets the short attribute of the XlsResultSet object
      *
-     * @param  p0                Description of Parameter
+     * @param  columnName        Column to read
      * @return                   The short value
      * @exception  SQLException  Description of Exception
      * @since
@@ -476,7 +479,7 @@ public class XlsResultSet implements ResultSet
     /**
      *Gets the int attribute of the XlsResultSet object
      *
-     * @param  p0                Description of Parameter
+     * @param  columnName        Column to read
      * @return                   The int value
      * @exception  SQLException  Description of Exception
      * @since
@@ -498,7 +501,7 @@ public class XlsResultSet implements ResultSet
     /**
      *Gets the long attribute of the XlsResultSet object
      *
-     * @param  p0                Description of Parameter
+     * @param  columnName        Column to read
      * @return                   The long value
      * @exception  SQLException  Description of Exception
      * @since
@@ -520,7 +523,7 @@ public class XlsResultSet implements ResultSet
     /**
      *Gets the float attribute of the XlsResultSet object
      *
-     * @param  p0                Description of Parameter
+     * @param  columnName        Column to read
      * @return                   The float value
      * @exception  SQLException  Description of Exception
      * @since
@@ -542,7 +545,7 @@ public class XlsResultSet implements ResultSet
     /**
      *Gets the double attribute of the XlsResultSet object
      *
-     * @param  p0                Description of Parameter
+     * @param  columnName        Column to read
      * @return                   The double value
      * @exception  SQLException  Description of Exception
      * @since
@@ -571,6 +574,7 @@ public class XlsResultSet implements ResultSet
      * @since
      */
     @Override
+    @Deprecated
     public BigDecimal getBigDecimal(String p0, int p1) throws SQLException
     {
         throw new SQLException("Not Supported !");
@@ -663,6 +667,7 @@ public class XlsResultSet implements ResultSet
      * @since
      */
     @Override
+    @Deprecated
     public InputStream getUnicodeStream(String p0) throws SQLException
     {
         throw new SQLException("Not Supported !");

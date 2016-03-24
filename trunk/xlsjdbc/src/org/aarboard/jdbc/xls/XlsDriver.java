@@ -38,7 +38,6 @@ public class XlsDriver implements Driver
     public static final String STRING_DATE_FORMAT = "stringDateFormat"; /// The format to use when converting a string into date in getDate calls
     private final static String URL_PREFIX_XLS = "jdbc:aarboard:xls:";
     public static final String XLS_READER_CLASS = "XlsReaderClass";    /// What class to use for acessing xls files, can be either "org.aarboard.jdbc.xls.POIReader" or "org.aarboard.jdbc.xls.JXLReader"
-    private Properties info = null;
 
     /**
      *Gets the propertyInfo attribute of the XlsDriver object
