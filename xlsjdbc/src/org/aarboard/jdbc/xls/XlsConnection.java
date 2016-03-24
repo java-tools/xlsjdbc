@@ -69,7 +69,7 @@ public class XlsConnection implements Connection
         {
             fileExtension = info.getProperty(XlsDriver.FILE_EXTENSION, fileExtension);
             separator = info.getProperty(XlsDriver.SEPARATOR, new Character(separator).toString()).charAt(0);
-            suppressHeaders = Boolean.valueOf(info.getProperty(XlsDriver.SUPPRESS_HEADERS, String.valueOf(suppressHeaders))).booleanValue();
+            suppressHeaders = Boolean.valueOf(info.getProperty(XlsDriver.SUPPRESS_HEADERS, String.valueOf(suppressHeaders)));
             stringDateFormat = info.getProperty(XlsDriver.STRING_DATE_FORMAT, null);
             xlsReaderClass = info.getProperty(XlsDriver.XLS_READER_CLASS, "org.aarboard.jdbc.xls.POIReader");
         }

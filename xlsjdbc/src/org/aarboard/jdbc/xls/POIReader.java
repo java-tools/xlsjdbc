@@ -21,7 +21,6 @@ import java.io.FileInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.apache.poi.hssf.record.Record;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
@@ -45,11 +44,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
  */
 public class POIReader implements IXlsReader
 {
-
-    private InputStream stream = null;
-    private Record[] records = null;
     protected Workbook workbook = null;
-//    private Workbook workbook;
     private Sheet input;
     private int cRow;   // The current row we are on
     private String[] columnNames;
@@ -87,8 +82,9 @@ public class POIReader implements IXlsReader
      * Creation date: (6-11-2001 15:02:42)
      *
      * @param  fileName                 java.lang.String
-     * @param  seperator                char
+     * @param  separator                char
      * @param  suppressHeaders          boolean
+     * @param stringDateFormat
      * @exception  java.lang.Exception  The exception description.
      * @since
      */
@@ -179,27 +175,24 @@ public class POIReader implements IXlsReader
     public String getColumn(int columnIndex)
     {
         Cell thisCell = columns.getCell( columnIndex-1);
-        if (thisCell.getCellType() == Cell.CELL_TYPE_STRING)
+        switch (thisCell.getCellType())
         {
-            return thisCell.getStringCellValue();
-        }
-        else if (thisCell.getCellType() == Cell.CELL_TYPE_NUMERIC)
-        {
-            double cValue = thisCell.getNumericCellValue();
-            CellStyle cStyle = thisCell.getCellStyle();
-            short cFormatIndex = cStyle.getDataFormat();
-            DataFormat thisFormat = workbook.createDataFormat();
-            // String cFormat= thisFormat.getFormat(cFormatIndex);
-            String retVal = Double.toString(cValue);
-            if (retVal.substring(retVal.length() - 2).equals(".0"))
-            {
-                retVal = retVal.substring(0, retVal.length() - 2);
-            }
-            return retVal;
-        }
-        else
-        {
-            return thisCell.getStringCellValue();
+            case Cell.CELL_TYPE_STRING:
+                return thisCell.getStringCellValue();
+            case Cell.CELL_TYPE_NUMERIC:
+                double cValue = thisCell.getNumericCellValue();
+                CellStyle cStyle = thisCell.getCellStyle();
+                short cFormatIndex = cStyle.getDataFormat();
+                DataFormat thisFormat = workbook.createDataFormat();
+                // String cFormat= thisFormat.getFormat(cFormatIndex);
+                String retVal = Double.toString(cValue);
+                if (retVal.substring(retVal.length() - 2).equals(".0"))
+                {
+                    retVal = retVal.substring(0, retVal.length() - 2);
+                }
+                return retVal;
+            default:
+                return thisCell.getStringCellValue();
         }
     }
 

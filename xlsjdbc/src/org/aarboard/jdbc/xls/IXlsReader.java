@@ -92,6 +92,7 @@ public interface IXlsReader
      * 
      * @param columnIndex  Description of Parameter
      * @return The column value
+     * @throws java.text.ParseException
      * @since 
      */
     Date getColumnDate(int columnIndex) throws ParseException;

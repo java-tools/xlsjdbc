@@ -32,7 +32,7 @@ import org.relique.jdbc.csv.*;
 public class XlsStatement implements Statement
 {
 
-    private XlsConnection connection;
+    private final XlsConnection connection;
 
     /**
      *Constructor for the XlsStatement object
@@ -322,7 +322,7 @@ public class XlsStatement implements Statement
             throw new SQLException("Syntax Error. " + e.getMessage());
         }
 
-        String fileName = connection.getFilePath() + parser.getTableName() + connection.getExtension();
+        String fileName = connection.getFilePath() + parser.getTableNames().get(0) + connection.getExtension();
         File checkFile = new File(fileName);
 
         if (!checkFile.exists())
@@ -354,7 +354,7 @@ public class XlsStatement implements Statement
             throw ex;
         }
 
-        return new XlsResultSet(this, reader, parser.getTableName(), parser.getColumnNames());
+        return new XlsResultSet(this, reader, parser.getTableNames().get(0), parser.getColumnNames());
     }
 
     /**
